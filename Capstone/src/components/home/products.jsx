@@ -3,12 +3,14 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import { useNavigate } from "react-router-dom";
+import ListGroup from 'react-bootstrap/ListGroup';
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
-  const navigate = useNavigate();
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     function fetchProducts() {
@@ -21,32 +23,42 @@ export default function Products() {
 
   return (
     <>
+ 
       <Container>
+      <Form style={{ marginTop: '4vmin' }}>
+        <InputGroup bg="dark" data-bs-theme="light" className="mb-3">
+          <Form.Control
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search Products"
+          />
+        </InputGroup>
+      </Form>
         <Row>
-          <Col md={2}>
-            {products.map((product) => (
-              <Card variant="dark" key={product.id} style={{ width: "25rem" }}>
-                <Card.Img
+          <Col>
+            {products
+            .filter((products) => {
+              return search.toLowerCase() === ""
+                ? products
+                : products.title.toLowerCase().includes(search) || products.description.toLowerCase().includes(search) ||
+                products.category.toLowerCase().includes(search) ;
+            })
+            .map((product) => (
+              <Card variant="dark" key={product.id} style={{ width: "35rem" }}>
+                <Link to={`/products/${product.id}`}><Card.Img
                   variant="top"
                   src={product.image}
-                  style={{ width: "20rem" }}
+                  style={{ width: "30rem" }}
                 />
-
+</Link>
                 <Card.Body>
                   <Card.Title>{product.title}</Card.Title>
-                  <Card.Text>
-                    Category: {product.category} <br />
-                    Price: ${product.price} <br />
-                  </Card.Text>
+                  <ListGroup variant="flush">
+              <ListGroup.Item>
+                Category: {product.category}
+              </ListGroup.Item>
+              <ListGroup.Item> Price: ${product.price}</ListGroup.Item>
+                  </ListGroup>
 
-                  <Button
-                    variant="success"
-                    onClick={() => {
-                      navigate(`/products/${product.id}`);
-                    }}
-                  >
-                    View Details
-                  </Button>
                 </Card.Body>
               </Card>
             ))}

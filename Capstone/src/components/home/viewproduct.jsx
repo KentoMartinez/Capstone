@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/esm/Button";
+import ListGroup from "react-bootstrap/ListGroup";
 
 export default function ViewProducts() {
   const { id } = useParams();
@@ -23,31 +24,35 @@ export default function ViewProducts() {
         <Card
           variant="dark"
           key={viewProductInfo.id}
-          style={{ width: "30rem" }}
+          style={{ width: "40rem" }}
         >
           <Card.Img
             variant="top"
             src={viewProductInfo.image}
-            style={{ width: "25rem" }}
+            style={{ width: "35rem" }}
           />
 
           <Card.Body>
             <Card.Title>{viewProductInfo.title}</Card.Title>
-            <Card.Text>
-              Category: {viewProductInfo.category} <br />
-              Description: {viewProductInfo.description} <br />
-              Price: ${viewProductInfo.price} <br />
-              Rating: {viewProductInfo.rating.rate} <br />
-              Reviews: {viewProductInfo.rating.count} <br />
-            </Card.Text>
-            <Button
-              variant="dark"
-              onClick={() => {
-                navigate(`/products`);
-              }}
-            >
-              Back
-            </Button>
+
+            <ListGroup variant="flush">
+              <ListGroup.Item>
+                Category: {viewProductInfo.category}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                {" "}
+                Description: {viewProductInfo.description}
+              </ListGroup.Item>
+              <ListGroup.Item> Price: ${viewProductInfo.price}</ListGroup.Item>
+              <ListGroup.Item>
+                {" "}
+                Rating: {viewProductInfo.rating.rate}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                {" "}
+                Reviews: {viewProductInfo.rating.count}
+              </ListGroup.Item>
+            </ListGroup>
             <Button
               variant="warning"
               onClick={() => {
