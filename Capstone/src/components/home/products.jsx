@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -23,7 +23,6 @@ export default function Products() {
 
   return (
     <>
- 
       <Container>
       <Form style={{ marginTop: '4vmin' }}>
         <InputGroup bg="dark" data-bs-theme="light" className="mb-3">
@@ -39,7 +38,7 @@ export default function Products() {
             .filter((products) => {
               return search.toLowerCase() === ""
                 ? products
-                : products.title.toLowerCase().includes(search) || products.description.toLowerCase().includes(search) ||
+                : products.title.toLowerCase().includes(search) ||
                 products.category.toLowerCase().includes(search) ;
             })
             .map((product) => (

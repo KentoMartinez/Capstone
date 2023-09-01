@@ -52,14 +52,14 @@ export default function NavbarPro() {
 
           <Offcanvas.Body>
             <Nav className="flex-column">
-              <Nav.Link variant="dark" href="/products/category/electronics">
+              <Nav.Link  style={{ color: "black" }} variant="dark" href="/products/category/electronics">
                 Electronics
               </Nav.Link>
-              <Nav.Link href="/products/category/jewerely">Jewelery</Nav.Link>
-              <Nav.Link href="/products/category/men's clothing">
+              <Nav.Link  style={{ color: "black" }} href="/products/category/jewerely">Jewelery</Nav.Link>
+              <Nav.Link  style={{ color: "black" }} href="/products/category/men's clothing">
                 Men's Clothing
               </Nav.Link>
-              <Nav.Link href="/products/category/women's clothing">
+              <Nav.Link  style={{ color: "black" }} href="/products/category/women's clothing">
                 Women's Clothing
               </Nav.Link>
             </Nav>
