@@ -27,7 +27,7 @@ export default function NavbarPro() {
                 <Offcanvas.Title>
                   <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>
-                      <a href="#login">Markento</a>
+                      <a href="#login">User</a>
                     </Navbar.Text>
                   </Navbar.Collapse>
                 </Offcanvas.Title>
