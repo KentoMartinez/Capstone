@@ -13,6 +13,7 @@ import Womens from "./components/categories/womensclothing";
 function App() {
   return (
     <>
+    <div className="bg">
       <NavbarPro />
       <Routes>
         <Route path="/" element={<LogIn />} />
@@ -29,6 +30,7 @@ function App() {
           element={<Womens />}
         />
       </Routes>
+      </div>
     </>
   );
 }

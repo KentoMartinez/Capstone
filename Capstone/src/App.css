@@ -40,3 +40,30 @@
 .read-the-docs {
   color: #888;
 }
+img {
+  max-width: 180px;
+  margin: 2px;
+}
+/* .bg {
+  background-image: url(./components/home/OIP.jpeg);
+  width: 150vmin;
+  height: 200px;
+  background-size: cover;
+
+} */
+.flex-container {
+  display: flex;
+  align-items: center;
+}
+
+.image-container {
+  flex: 1;
+  margin-left: 5rem; 
+}
+
+.info-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}

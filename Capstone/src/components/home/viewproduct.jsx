@@ -22,17 +22,45 @@ export default function ViewProducts() {
     <>
       {viewProductInfo ? (
         <Card
+
           variant="dark"
           key={viewProductInfo.id}
-          style={{ width: "40rem" }}
+          style={{ width: "40rem", marginTop: "4vmin" }}
         >
-          <Card.Img
-            variant="top"
-            src={viewProductInfo.image}
-            style={{ width: "35rem" }}
-          />
-
-          <Card.Body>
+          <div className="flex-container">
+            <div className="image-container">
+              <Card.Img
+                variant="top"
+                src={viewProductInfo.image}
+                style={{ width: "35rem" }}
+              />
+            </div>
+            <div className="info-container">
+              <ListGroup variant="flush">
+                <ListGroup.Item>
+                  <Button
+                    variant="warning"
+                    onClick={() => {
+                      navigate(`#`);
+                    }}
+                  >
+                    Add to Cart
+                  </Button>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  {" "}
+                  Price: ${viewProductInfo.price}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  Rating: {viewProductInfo.rating.rate}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  Reviews: {viewProductInfo.rating.count}
+                </ListGroup.Item>
+              </ListGroup>
+            </div>
+          </div>
+          <Card.Body style={{ marginLeft: "1rem" }}>
             <Card.Title>{viewProductInfo.title}</Card.Title>
 
             <ListGroup variant="flush">
@@ -40,27 +68,9 @@ export default function ViewProducts() {
                 Category: {viewProductInfo.category}
               </ListGroup.Item>
               <ListGroup.Item>
-                {" "}
                 Description: {viewProductInfo.description}
               </ListGroup.Item>
-              <ListGroup.Item> Price: ${viewProductInfo.price}</ListGroup.Item>
-              <ListGroup.Item>
-                {" "}
-                Rating: {viewProductInfo.rating.rate}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                {" "}
-                Reviews: {viewProductInfo.rating.count}
-              </ListGroup.Item>
             </ListGroup>
-            <Button
-              variant="warning"
-              onClick={() => {
-                navigate(`#`);
-              }}
-            >
-              Add to Cart
-            </Button>
           </Card.Body>
         </Card>
       ) : (
