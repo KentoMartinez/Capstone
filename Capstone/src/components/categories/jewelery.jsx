@@ -6,6 +6,8 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 import { Link } from "react-router-dom";
 
 export default function Jewelery() {
@@ -22,14 +24,39 @@ export default function Jewelery() {
   }, []);
   return (
     <>
-      <p style={{ marginTop: "4vmin" }}>JEWERELY</p>
+      <p style={{ marginTop: "8.5vmin" }}>JEWERELY</p>
       <Container>
         <Form style={{ marginTop: "4vmin" }}>
           <InputGroup bg="dark" data-bs-theme="light" className="mb-3">
             <Form.Control
+              aria-label="Text input with dropdown button"
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search Products"
             />
+            <DropdownButton
+              variant="outline-secondary"
+              title="Filter"
+              id="input-group-dropdown-2"
+              align="end"
+            >
+              <Dropdown.Item href="/products">Home</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item href="/products/category/electronics">
+                Electronics
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item href="/products/category/jewerely">
+                Jewerely
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item href="/products/category/men's clothing">
+                Men's Clothing
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item href="/products/category/women's clothing">
+                Womes's Clothing
+              </Dropdown.Item>
+            </DropdownButton>
           </InputGroup>
         </Form>
         <Row>
