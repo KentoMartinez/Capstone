@@ -39,7 +39,7 @@ export default function ViewProducts() {
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Button
-                    variant="warning"
+                   style={{ border:"none", color: "black",backgroundColor: "turquoise"}}
                     onClick={() => {
                       navigate(`#`);
                     }}

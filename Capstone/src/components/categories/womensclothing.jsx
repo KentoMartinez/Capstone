@@ -24,7 +24,7 @@ export default function Womens() {
   }, []);
   return (
     <>
-      <p style={{ marginTop: "8.5vmin" }}>WOMEN'S CLOTHING</p>
+      <p style={{ marginTop: "8vmin" }}>WOMEN'S CLOTHING</p>
       <Container>
         <Form style={{ marginTop: "4vmin" }}>
           <InputGroup bg="dark" data-bs-theme="light" className="mb-3">

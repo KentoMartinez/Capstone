@@ -5,6 +5,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 
+
 export default function NavbarPro() {
   const [show, setShow] = useState(false);
 
@@ -15,21 +16,23 @@ export default function NavbarPro() {
     <>
       {[false].map((expand) => (
         <Navbar
+        
           fixed="top"
           key={expand}
           expand={expand}
           className="bg-body-tertiary md-3"
         >
-          <Container fluid>
-            <Navbar.Toggle style={{ marginRight: "1.5vmin",fontSize: "2.5vmin" }} aria-controls={`offcanvasNavbar-expand-${expand}`} />
+          <Container style={{ backgroundColor: "gray", marginTop: "-1vmin"}} fluid>
+          <Navbar.Brand onClick={handleShow}>
+          <i style={{ fontSize: "3.5vmin" }} class="bi bi-list"></i>
+              </Navbar.Brand>
             <Nav.Link style={{ fontSize: "4vmin" }} href="/products">MONACO</Nav.Link>
-            <Navbar.Brand onClick={handleShow}>
-              <Button variant="light">
-                <i style={{ fontSize: "3.5vmin" }} class="bi bi-person-circle"></i>
-              </Button>
-            </Navbar.Brand>
-
-            <Navbar.Offcanvas placement="start">
+            
+            <Nav.Link  href="/products/carts"
+            style={{ backgroundColor: "gray", color: "black", border: "none"}}>
+                <i style={{ fontSize: "3.5vmin" }} class="bi bi-cart"></i>
+              </Nav.Link>
+            <Navbar.Offcanvas style={{backgroundColor: "lightGray"}} placement="start"  show={show} onHide={handleClose}>
               <Offcanvas.Header closeButton>
               <Offcanvas.Title>
                 <Offcanvas.Title style={{ fontSize: "3.5vmin"}} >Trending Now</Offcanvas.Title>
@@ -45,6 +48,7 @@ export default function NavbarPro() {
                   >
                     Best Sellers
                   </Nav.Link>
+             
                   <Nav.Link
                     style={{ color: "black" }}
                     href="/products/category/jewerely"
@@ -81,27 +85,11 @@ export default function NavbarPro() {
                   >
                     Women's Clothing
                   </Nav.Link>
-                </Nav>
-              </Offcanvas.Body>
-            </Navbar.Offcanvas>
-          </Container>
-        </Navbar>
-      ))}
-      <Container fluid>
-        <Navbar.Offcanvas placement="end" show={show} onHide={handleClose}>
-          <Offcanvas.Body>
-            <Nav className="flex-column">
-              <Offcanvas.Header closeButton>
-                <Offcanvas.Title>
-                  <Nav.Link style={{ fontSize: "3.5vmin", color: "black" }} href="/cart">
-                    User
-                  </Nav.Link>
-                </Offcanvas.Title>
-              </Offcanvas.Header>
-              <Offcanvas.Body>
-                <Nav className="flex-column">
-                  <Nav.Link style={{ color: "black" }} href="#">
-                    Cart
+                  <Offcanvas.Header>
+                  <Offcanvas.Title>Help and Settings </Offcanvas.Title>
+                </Offcanvas.Header>
+                <Nav.Link style={{ color: "black" }} href="#">
+                    Porfile
                   </Nav.Link>
                   <Nav.Link style={{ color: "black" }} href="#">
                     Orders
@@ -111,10 +99,10 @@ export default function NavbarPro() {
                   </Nav.Link>
                 </Nav>
               </Offcanvas.Body>
-            </Nav>
-          </Offcanvas.Body>
-        </Navbar.Offcanvas>
-      </Container>
+            </Navbar.Offcanvas>
+          </Container>
+        </Navbar>
+      ))}
     </>
   );
 }

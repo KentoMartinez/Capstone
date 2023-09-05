@@ -24,7 +24,7 @@ export default function Jewelery() {
   }, []);
   return (
     <>
-      <p style={{ marginTop: "8.5vmin" }}>JEWERELY</p>
+      <p style={{ marginTop: "8vmin" }}>JEWERELY</p>
       <Container>
         <Form style={{ marginTop: "4vmin" }}>
           <InputGroup bg="dark" data-bs-theme="light" className="mb-3">

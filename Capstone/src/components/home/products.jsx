@@ -26,9 +26,11 @@ export default function Products() {
   return (
     <>
       <Container>
-        <Form style={{ marginTop: "8.5vmin" }}>
+        <Form style={{ marginTop: "6vmin" }}>
           <InputGroup bg="dark" data-bs-theme="light" className="mb-3">
+          <InputGroup.Text id="inputGroupPrepend"><i class="bi bi-search"></i></InputGroup.Text>
             <Form.Control
+            
               aria-label="Text input with dropdown button"
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search Products"
@@ -68,9 +70,10 @@ export default function Products() {
               })
               .map((product) => (
                 <Card
+         
                   variant="dark"
                   key={product.id}
-                  style={{ width: "35rem" }}
+                  style={{ width: "35rem"}}
                 >
                   <Link to={`/products/${product.id}`}>
                     <Card.Img
