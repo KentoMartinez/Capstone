@@ -25,14 +25,14 @@ export default function ViewProducts() {
 
           variant="dark"
           key={viewProductInfo.id}
-          style={{ width: "40rem", marginTop: "4vmin" }}
+          style={{ width: "70vmin", marginTop: "4vmin" }}
         >
           <div className="flex-container">
             <div className="image-container">
               <Card.Img
                 variant="top"
                 src={viewProductInfo.image}
-                style={{ width: "35rem" }}
+                style={{ width: "60vmin" }}
               />
             </div>
             <div className="info-container">

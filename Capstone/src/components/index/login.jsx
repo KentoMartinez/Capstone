@@ -8,6 +8,7 @@ export default function LogIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  
 
   function handleLogin() {
 
@@ -17,12 +18,13 @@ export default function LogIn() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: "mor_2314",
-        password: "83r5^_"
+        "username":  username ,
+        "password": password ,
       }),
     })
       .then((res) => res.json())
       .then((json) => console.log(json))
+      localStorage.setItem('username', username )
       navigate("/products");
 
   }

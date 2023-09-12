@@ -26,11 +26,14 @@ export default function Products() {
   return (
     <>
       <Container>
-        <Form style={{ marginTop: "6vmin" }}>
+        <Form style={{ marginTop: "6vmin", width: "70vmin" }}>
+      
+        
           <InputGroup bg="dark" data-bs-theme="light" className="mb-3">
-          <InputGroup.Text id="inputGroupPrepend"><i class="bi bi-search"></i></InputGroup.Text>
+            <InputGroup.Text id="inputGroupPrepend">
+              <i class="bi bi-search"></i>
+            </InputGroup.Text>
             <Form.Control
-            
               aria-label="Text input with dropdown button"
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search Products"
@@ -70,27 +73,31 @@ export default function Products() {
               })
               .map((product) => (
                 <Card
-         
                   variant="dark"
                   key={product.id}
-                  style={{ width: "35rem"}}
+                  style={{ width: "70vmin" }}
                 >
-                  <Link to={`/products/${product.id}`}>
-                    <Card.Img
-                      variant="top"
-                      src={product.image}
-                      style={{ width: "30rem" }}
-                    />
-                  </Link>
-                  <Card.Body>
-                    <Card.Title>{product.title}</Card.Title>
-                    <ListGroup variant="flush">
-                      <ListGroup.Item>
-                        Category: {product.category}
-                      </ListGroup.Item>
-                      <ListGroup.Item> Price: ${product.price}</ListGroup.Item>
-                    </ListGroup>
-                  </Card.Body>
+                  <Card.Title>{product.title}</Card.Title>
+                  <div className="flex-container">
+                    <div className="image-container">
+                      <Link to={`/products/${product.id}`}>
+                        <Card.Img
+                          variant="top"
+                          src={product.image}
+                          style={{ width: "50vmin" }}
+                        />
+                      </Link>
+                    </div>
+                    <div className="info-container">
+                      <ListGroup variant="flush">
+                        <ListGroup.Item> Product # {product.id}</ListGroup.Item>
+                        <ListGroup.Item>
+                          Category: {product.category}
+                        </ListGroup.Item>
+                        <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
+                      </ListGroup>
+                    </div>
+                  </div>
                 </Card>
               ))}
           </Col>
