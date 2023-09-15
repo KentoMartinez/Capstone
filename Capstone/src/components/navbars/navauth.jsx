@@ -18,7 +18,7 @@ export default function NavbarAuth() {
           fixed="top"
           key={expand}
           expand={expand}
-          bg="black"
+          bg="dark"
           data-bs-theme="dark"
         >
           <Container fluid>
@@ -28,12 +28,12 @@ export default function NavbarAuth() {
           
             <Nav className="flex-row">
               
-            <Nav.Link  style={{color: "white"}}>
-            User : 
+            <Nav.Link  href="/profile" style={{color: "white"}}>
+            
                {" "+localStorage.getItem("username")}
                </Nav.Link>
             <Nav.Link href="/products">Home</Nav.Link>
-              <Nav.Link href="/profile">Profile</Nav.Link>
+              
               <Nav.Link href="/cart">Cart</Nav.Link>
               <Nav.Link href="/orders">Orders</Nav.Link>
               <Nav.Link style={{ color: "red" }} href="/">
@@ -44,14 +44,14 @@ export default function NavbarAuth() {
 
             <Navbar.Offcanvas
              
-              style={{ backgroundColor: "black" }}
+             bg="dark"
+             data-bs-theme="dark"
               placement="start"
               show={show}
               onHide={handleClose}
             > 
               <Offcanvas.Header 
-              bg="black"
-               data-bs-theme="dark" closeButton>
+               closeButton>
                 <Offcanvas.Title
                   style={{ color: "red" }}
                 >

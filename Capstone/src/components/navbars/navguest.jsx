@@ -17,7 +17,7 @@ export default function NavbarGuest() {
           fixed="top"
           key={expand}
           expand={expand}
-          bg="black"
+          bg="dark"
           data-bs-theme="dark"
         >
           <Container fluid>
@@ -34,8 +34,9 @@ export default function NavbarGuest() {
             </Nav>
 
             <Navbar.Offcanvas
+              bg="dark"
+              data-bs-theme="dark"
              
-             style={{ backgroundColor: "black" }}
              placement="start"
              show={show}
              onHide={handleClose}

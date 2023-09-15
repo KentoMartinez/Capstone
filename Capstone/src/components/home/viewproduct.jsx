@@ -15,7 +15,7 @@ export default function ViewProducts({showMessage}) {
         .then((res) => res.json())
         .then((json) => {
           setViewProductInfo(json);
-        showMessage("Product's Details" ,'Success');
+       
         })
         .catch((error) => {
           showMessage(error.message,'danger');
