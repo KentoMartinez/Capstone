@@ -22,13 +22,13 @@ export default function NavbarAuth() {
           data-bs-theme="dark"
         >
           <Container fluid>
-          <Nav.Link onClick={handleShow}>
-               Monaco 
+          <Nav.Link onClick={handleShow}  style={{color: "white"}}>
+               MONACO
                </Nav.Link> 
           
             <Nav className="flex-row">
               
-            <Nav.Link >
+            <Nav.Link  style={{color: "white"}}>
             User : 
                {" "+localStorage.getItem("username")}
                </Nav.Link>

@@ -6,6 +6,7 @@ import Products from "./components/home/products";
 import ViewProducts from "./components/home/viewproduct";
 import ViewProfile from "./components/user/profile";
 import LogIn from "./components/index/login";
+import SignIn from "./components/index/signup";
 import Jewelery from "./components/categories/jewelery";
 import Electronics from "./components/categories/electronics";
 import Mens from "./components/categories/mensclothing";
@@ -34,6 +35,7 @@ function App() {
       <Navbars />
       <Routes>
         <Route path="/" element={<LogIn showMessage={showMessage} />} />
+        <Route path="/sign" element={<SignIn showMessage={showMessage} />} />
         <Route path="/products" element={<Products showMessage={showMessage}/>} />
         <Route path="/products/:id" element={<ViewProducts showMessage={showMessage} />} />
         <Route path="/profile" element={<ViewProfile showMessage={showMessage}/>} />
