@@ -21,12 +21,12 @@ export default function NavbarGuest() {
           data-bs-theme="dark"
         >
           <Container fluid>
-           
-
-            <Nav className="flex-row">
-            <Nav.Link onClick={handleShow}>
+          <Nav.Link onClick={handleShow}>
                Monaco 
                </Nav.Link>
+
+            <Nav className="flex-row">
+            
               <Nav.Link href="/products">Home</Nav.Link>
               <Nav.Link href="/sign" style={{ color: "orange" }}>Sign Up</Nav.Link>
               <Nav.Link href="/" style={{ color: "turquoise" }}>Log In</Nav.Link>
