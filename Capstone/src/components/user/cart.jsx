@@ -3,15 +3,19 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 
 
-export default function Carts() {
+export default function Carts({showMessage}) {
   const [carts, setCarts] = useState([]);
+  const username = localStorage.getItem("username");
   useEffect(() => {
     function fetchCarts() {
       fetch(`https://fakestoreapi.com/carts`)
         .then((res) => res.json())
-        .then((json) => setCarts(json))
+        .then((json) => {
+          setCarts(json);
+                showMessage( username + "'s cart" ,'Success');
+        })
         .catch((error) => {
-          console.error("Error", error);
+          showMessage(error.message,'danger');
         });
     }
     fetchCarts();

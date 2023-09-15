@@ -2,14 +2,21 @@ import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 
-export default function Profile() {
+export default function Profile({showMessage}) {
   const [users, setUsers] = useState([]);
+  const username = localStorage.getItem("username");
 
   useEffect(() => {
     function fecthUsers() {
       fetch(`https://fakestoreapi.com/users`)
         .then((res) => res.json())
-        .then((json) => setUsers(json));
+        .then((json) => {
+         setUsers(json);
+        showMessage(username +"'s Profile" ,'Success');
+        })
+        .catch((error) => {
+          showMessage(error.message,'danger');
+        });
     }
     fecthUsers();
   }, []);

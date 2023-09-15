@@ -3,22 +3,30 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Products() {
+export default function Products({ showMessage }) {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     function fetchProducts() {
       fetch("https://fakestoreapi.com/products")
         .then((res) => res.json())
-        .then((json) => setProducts(json));
+
+        .then((json) => {
+          setProducts(json);
+        })
+        .catch((error) => {
+          showMessage(error.message, "danger");
+        });
     }
     fetchProducts();
   }, []);
@@ -27,8 +35,6 @@ export default function Products() {
     <>
       <Container>
         <Form style={{ marginTop: "6vmin", width: "70vmin" }}>
-      
-        
           <InputGroup bg="dark" data-bs-theme="light" className="mb-3">
             <InputGroup.Text id="inputGroupPrepend">
               <i class="bi bi-search"></i>
@@ -90,6 +96,38 @@ export default function Products() {
                     </div>
                     <div className="info-container">
                       <ListGroup variant="flush">
+                        <div
+                          className="flex-container"
+                          style={{
+                            marginInline: "4vmin",
+                            alignContent: "space-between",
+                          }}
+                        >
+                          <Button
+                            style={{
+                              border: "none",
+                              color: "black",
+                              backgroundColor: "orange",
+                            }}
+                            onClick={() => {
+                              navigate(`#`);
+                            }}
+                          >
+                            Add to Cart
+                          </Button>
+                          <Button
+                            style={{
+                              border: "none",
+                              color: "black",
+                              backgroundColor: "turquoise",
+                            }}
+                            onClick={() => {
+                              navigate(`/products/${product.id}`);
+                            }}
+                          >
+                            View
+                          </Button>
+                        </div>
                         <ListGroup.Item> Product # {product.id}</ListGroup.Item>
                         <ListGroup.Item>
                           Category: {product.category}

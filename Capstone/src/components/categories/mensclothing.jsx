@@ -5,20 +5,28 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 
-export default function Mens() {
+export default function Mens({showMessage}) {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     function fetchMens() {
       fetch("https://fakestoreapi.com/products/category/men's clothing")
         .then((res) => res.json())
-        .then((json) => setProducts(json));
+        .then((json) => {
+          setProducts(json);
+        
+        })
+        .catch((error) => {
+          showMessage(error.message,'danger');
+        }); 
     }
     fetchMens();
   }, []);
@@ -26,7 +34,7 @@ export default function Mens() {
     <>
       <p style={{ marginTop: "8vmin" }}>MEN'S CLOTHING</p>
       <Container>
-        <Form style={{ marginTop: "4vmin" }}>
+        <Form style={{ marginTop: "4vmin" ,  width: "70vmin" }}>
           <InputGroup bg="dark" data-bs-theme="light" className="mb-3">
             <Form.Control
               aria-label="Text input with dropdown button"
@@ -71,24 +79,57 @@ export default function Mens() {
                 <Card
                   variant="dark"
                   key={product.id}
-                  style={{ width: "30rem" }}
+                  style={{ width: "70vmin" }}
                 >
-                  <Link to={`/products/${product.id}`}>
-                    <Card.Img
-                      variant="top"
-                      src={product.image}
-                      style={{ width: "25rem" }}
-                    />
-                  </Link>
-                  <Card.Body>
-                    <Card.Title>{product.title}</Card.Title>
-                    <ListGroup variant="flush">
-                      <ListGroup.Item>
-                        Category: {product.category}
-                      </ListGroup.Item>
-                      <ListGroup.Item> Price: ${product.price}</ListGroup.Item>
-                    </ListGroup>
-                  </Card.Body>
+                  <Card.Title>{product.title}</Card.Title>
+                  <div className="flex-container">
+                    <div className="image-container">
+                    <Link to={`/products/${product.id}`}>
+                      <Card.Img
+                        variant="top"
+                        src={product.image}
+                        style={{ width: "50vmin" }}
+                      />
+                      </Link>
+                    </div>
+                    <div className="info-container">
+                      <ListGroup variant="flush">
+                        <div className="flex-container"
+                        style={{marginInline: "4vmin", alignContent: "space-between"}}>
+                          <Button
+                            style={{
+                              border: "none",
+                              color: "black",
+                              backgroundColor: "orange",
+                            }}
+                            onClick={() => {
+                              navigate(`#`);
+                            }}
+                          >
+                            Add to Cart
+                          </Button>
+                          <Button
+                            style={{
+                              border: "none",
+                              color: "black",
+                              backgroundColor: "turquoise",
+                            }}
+                            onClick={() => {
+                              navigate(`/products/${product.id}`);
+                            }}
+                          >
+                            
+                            View
+                          </Button>
+                        </div>
+                        <ListGroup.Item> Product # {product.id}</ListGroup.Item>
+                        <ListGroup.Item>
+                          Category: {product.category}
+                        </ListGroup.Item>
+                        <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
+                      </ListGroup>
+                    </div>
+                  </div>
                 </Card>
               ))}
           </Col>

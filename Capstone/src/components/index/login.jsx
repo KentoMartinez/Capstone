@@ -4,13 +4,15 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import { useNavigate } from "react-router-dom";
 
-export default function LogIn() {
+export default function LogIn({showMessage}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   
 
-  function handleLogin() {
+  function handleLogin(event) {
+    event.preventDefault();
+
 
     fetch('https://fakestoreapi.com/auth/login', {
       method: "POST",
@@ -18,14 +20,20 @@ export default function LogIn() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        "username":  username ,
+        "username": username ,
         "password": password ,
       }),
     })
       .then((res) => res.json())
-      .then((json) => console.log(json))
-      localStorage.setItem('username', username )
-      navigate("/products");
+      .then((json) => {
+      showMessage( username +" " + 'Log In','Success');
+      localStorage.setItem('username', username);
+      navigate(`/products`);
+      })
+      .catch((error) => {
+        showMessage(error.message,'danger');
+      });
+    
 
   }
 
@@ -63,10 +71,10 @@ export default function LogIn() {
         </Button>
         <Button
           onClick={() => {
-            navigate(`/products`);
+            localStorage.removeItem("username") 
+            navigate(`/products`)
           }}
           variant="secondary"
-          type="submit"
         >
           Continue as a Guess
         </Button>

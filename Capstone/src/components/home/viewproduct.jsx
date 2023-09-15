@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/esm/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 
-export default function ViewProducts() {
+export default function ViewProducts({showMessage}) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [viewProductInfo, setViewProductInfo] = useState();
@@ -13,7 +13,13 @@ export default function ViewProducts() {
     function fetchViewProducts() {
       fetch(`https://fakestoreapi.com/products/${id}`)
         .then((res) => res.json())
-        .then((json) => setViewProductInfo(json));
+        .then((json) => {
+          setViewProductInfo(json);
+        showMessage("Product's Details" ,'Success');
+        })
+        .catch((error) => {
+          showMessage(error.message,'danger');
+        });
     }
     fetchViewProducts();
   }, []);
@@ -41,10 +47,10 @@ export default function ViewProducts() {
                   <Button
                    style={{ border:"none", color: "black",backgroundColor: "turquoise"}}
                     onClick={() => {
-                      navigate(`#`);
+                      navigate(`/products`);
                     }}
                   >
-                    Add to Cart
+                    Back
                   </Button>
                 </ListGroup.Item>
                 <ListGroup.Item>
