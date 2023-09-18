@@ -2,9 +2,9 @@ import "./App.css";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import Products from "./components/home/products";
 import ViewProducts from "./components/home/viewproduct";
-import ViewProfile from "./components/user/profile";
 import LogIn from "./components/index/login";
 import SignIn from "./components/index/signup";
 import Jewelery from "./components/categories/jewelery";
@@ -12,7 +12,7 @@ import Electronics from "./components/categories/electronics";
 import Mens from "./components/categories/mensclothing";
 import Womens from "./components/categories/womensclothing";
 import Cart from "./components/user/cart";
-import Profile from "./components/user/profile";
+
 import ToastContainer from "react-bootstrap/ToastContainer";
 import Toast from "react-bootstrap/Toast";
 import Navbars from "./components/navbars/navbar";
@@ -38,7 +38,7 @@ function App() {
         <Route path="/sign" element={<SignIn showMessage={showMessage} />} />
         <Route path="/products" element={<Products showMessage={showMessage}/>} />
         <Route path="/products/:id" element={<ViewProducts showMessage={showMessage} />} />
-        <Route path="/profile" element={<ViewProfile showMessage={showMessage}/>} />
+
         <Route path="/products/category/jewerely" element={<Jewelery showMessage={showMessage}/>} />
         <Route
           path="/products/category/electronics"
@@ -50,7 +50,7 @@ function App() {
           element={<Womens showMessage={showMessage}/>}
         />
            <Route path="/cart" element={<Cart showMessage={showMessage}/>} />
-           <Route path="/user" element={<Profile showMessage={showMessage}/>} />
+
       </Routes>
    
       </div>

@@ -3,13 +3,14 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
+import { BsBag } from "react-icons/bs";
 
 export default function NavbarAuth() {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -22,45 +23,33 @@ export default function NavbarAuth() {
           data-bs-theme="dark"
         >
           <Container fluid>
-          <Nav.Link onClick={handleShow}  style={{color: "white"}}>
-               MONACO
-               </Nav.Link> 
-          
+            <Nav.Link onClick={handleShow} style={{ color: "white" }}>
+              MONACO
+            </Nav.Link>
+
             <Nav className="flex-row">
-              
-            <Nav.Link  href="/profile" style={{color: "white"}}>
             
-               {" "+localStorage.getItem("username")}
-               </Nav.Link>
-            <Nav.Link href="/products">Home</Nav.Link>
-              
-              <Nav.Link href="/cart">Cart</Nav.Link>
-              <Nav.Link href="/orders">Orders</Nav.Link>
-              <Nav.Link style={{ color: "red" }} href="/">
-              
-                Log out
-              </Nav.Link>
+
+              <Nav.Link href="/cart"><BsBag/ ></Nav.Link>
+
+            
             </Nav>
 
             <Navbar.Offcanvas
-             
-             bg="dark"
-             data-bs-theme="dark"
+              bg="dark"
+              data-bs-theme="dark"
               placement="start"
               show={show}
               onHide={handleClose}
-            > 
-              <Offcanvas.Header 
-               closeButton>
-                <Offcanvas.Title
-                  style={{ color: "red" }}
-                >
-                  Trending Now
+            >
+              <Offcanvas.Header closeButton>
+                <Offcanvas.Title style={{ color: "white" }}>
+                  Trending 
                 </Offcanvas.Title>
               </Offcanvas.Header>
 
               <Offcanvas.Body>
-                <Nav >
+                <Nav>
                   <Nav.Link href="/products/category/electronics">
                     Best Sellers
                   </Nav.Link>
@@ -68,15 +57,16 @@ export default function NavbarAuth() {
                   <Nav.Link href="/products/category/jewerely">
                     New Releases
                   </Nav.Link>
+                  <Nav.Link href="/products">Home</Nav.Link>
                 </Nav>
                 <br />
-                <Offcanvas.Header>
-                  <Offcanvas.Title style={{ color: "red" }}>
-                    Shop by Categories
+            
+                  <Offcanvas.Title style={{ color: "white" }}>
+                    Categories
                   </Offcanvas.Title>
-                </Offcanvas.Header>
+               
                 <br />
-                <Nav >
+                <Nav>
                   <Nav.Link href="/products/category/electronics">
                     Electronics
                   </Nav.Link>
@@ -89,6 +79,24 @@ export default function NavbarAuth() {
                   <Nav.Link href="/products/category/women's clothing">
                     Women's Clothing
                   </Nav.Link>
+                  <br />
+            
+            <Offcanvas.Title style={{ color: "white" }}>
+              {" " + localStorage.getItem("username")}
+            </Offcanvas.Title>
+         
+          <br />
+          
+              <Nav.Link href="/profile">Profile</Nav.Link>
+              <Nav.Link
+                onClick={() => {
+                  localStorage.clear();
+                  navigate("/");
+                }}
+                style={{ color: "red" }}
+              >
+                Log out
+              </Nav.Link>
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

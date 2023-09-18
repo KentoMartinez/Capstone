@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/esm/Button";
 import ListGroup from "react-bootstrap/ListGroup";
+import { BsPerson } from "react-icons/bs"
 
 export default function ViewProducts({showMessage}) {
   const { id } = useParams();
@@ -45,7 +46,7 @@ export default function ViewProducts({showMessage}) {
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Button
-                   style={{ border:"none", color: "black",backgroundColor: "turquoise"}}
+                   variant="dark"
                     onClick={() => {
                       navigate(`/products`);
                     }}
@@ -53,16 +54,16 @@ export default function ViewProducts({showMessage}) {
                     Back
                   </Button>
                 </ListGroup.Item>
-                <ListGroup.Item>
+                <Card.Text>
                   {" "}
                   Price: ${viewProductInfo.price}
-                </ListGroup.Item>
-                <ListGroup.Item>
+                </Card.Text>
+                <Card.Text>
                   Rating: {viewProductInfo.rating.rate}
-                </ListGroup.Item>
-                <ListGroup.Item>
+                </Card.Text>
+                <Card.Text>
                   Reviews: {viewProductInfo.rating.count}
-                </ListGroup.Item>
+                </Card.Text>
               </ListGroup>
             </div>
           </div>

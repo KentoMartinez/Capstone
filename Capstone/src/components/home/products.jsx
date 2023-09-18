@@ -4,12 +4,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import ListGroup from "react-bootstrap/ListGroup";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { Link, useNavigate } from "react-router-dom";
+import { BsFillSearchHeartFill, BsBagCheck} from "react-icons/bs"
 
 export default function Products({ showMessage }) {
   const [products, setProducts] = useState([]);
@@ -34,10 +34,10 @@ export default function Products({ showMessage }) {
   return (
     <>
       <Container>
-        <Form style={{ marginTop: "6vmin", width: "70vmin" }}>
+        <Form style={{ marginTop: "6vmin", width: "100%" }}>
           <InputGroup bg="dark" data-bs-theme="light" className="mb-3">
             <InputGroup.Text id="inputGroupPrepend">
-              <i class="bi bi-search"></i>
+            <BsFillSearchHeartFill />
             </InputGroup.Text>
             <Form.Control
               aria-label="Text input with dropdown button"
@@ -46,7 +46,7 @@ export default function Products({ showMessage }) {
             />
             <DropdownButton
               variant="outline-secondary"
-              title="Filter"
+              title="Filters"
               id="input-group-dropdown-2"
               align="end"
             >
@@ -69,7 +69,13 @@ export default function Products({ showMessage }) {
           </InputGroup>
         </Form>
         <Row>
+          <h2>BEST SELLERS</h2>
           <Col>
+          
+          </Col>
+        </Row>
+        <Row>
+          
             {products
               .filter((products) => {
                 return search.toLowerCase() === ""
@@ -78,67 +84,40 @@ export default function Products({ showMessage }) {
                       products.category.toLowerCase().includes(search);
               })
               .map((product) => (
+                <Col key={product.id} md={3}>
                 <Card
                   variant="dark"
                   key={product.id}
-                  style={{ width: "70vmin" }}
+                  style={{ width: "100%" }}
                 >
-                  <Card.Title>{product.title}</Card.Title>
-                  <div className="flex-container">
-                    <div className="image-container">
-                      <Link to={`/products/${product.id}`}>
-                        <Card.Img
-                          variant="top"
-                          src={product.image}
-                          style={{ width: "50vmin" }}
-                        />
-                      </Link>
-                    </div>
-                    <div className="info-container">
-                      <ListGroup variant="flush">
-                        <div
-                          className="flex-container"
-                          style={{
-                            marginInline: "4vmin",
-                            alignContent: "space-between",
-                          }}
-                        >
-                          <Button
-                            style={{
-                              border: "none",
-                              color: "black",
-                              backgroundColor: "orange",
-                            }}
-                            onClick={() => {
-                              navigate(`#`);
-                            }}
-                          >
-                            Add to Cart
-                          </Button>
-                          <Button
-                            style={{
-                              border: "none",
-                              color: "black",
-                              backgroundColor: "turquoise",
-                            }}
-                            onClick={() => {
-                              navigate(`/products/${product.id}`);
-                            }}
-                          >
-                            View
-                          </Button>
-                        </div>
-                        <ListGroup.Item> Product # {product.id}</ListGroup.Item>
-                        <ListGroup.Item>
-                          Category: {product.category}
-                        </ListGroup.Item>
-                        <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
-                      </ListGroup>
-                    </div>
-                  </div>
+                  <Link to={`/products/${product.id}`}>
+                    <Card.Img
+                      variant="top"
+                      src={product.image}
+                      style={{ width: "100%" }}
+                    />
+                  </Link>
+
+                  <Card.Body>
+                    <Card.Text>{product.title}</Card.Text>
+                    <Card.Title>${product.price}</Card.Title>
+                    <Button
+                      style={{
+                        border: "none",
+                        color: "black",
+                        backgroundColor: "lightgray",
+                      }}
+                      onClick={() => {
+                        navigate(`#`);
+                      }}
+                    >
+                      <BsBagCheck />
+                    </Button>
+                  </Card.Body>
                 </Card>
+                </Col>
               ))}
-          </Col>
+         
         </Row>
       </Container>
     </>

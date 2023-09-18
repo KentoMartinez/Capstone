@@ -26,7 +26,7 @@ export default function LogIn({showMessage}) {
     })
       .then((res) => res.json())
       .then((json) => {
-      showMessage( username +" " + 'Log In','Success');
+      showMessage( username +" " + 'Logged In','Success');
       localStorage.setItem('username', username);
       navigate(`/products`);
       })
@@ -69,6 +69,13 @@ export default function LogIn({showMessage}) {
         <Button variant="primary" type="submit">
           Log In
         </Button>
+        <Button variant="success"
+        onClick={() => {
+          navigate("/sign")
+        }}
+        >
+          Register
+        </Button> <br />
         <Button
           onClick={() => {
             localStorage.removeItem("username") 
