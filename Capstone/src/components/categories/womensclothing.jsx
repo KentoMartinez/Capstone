@@ -9,6 +9,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { Link, useNavigate } from "react-router-dom";
+import { BsSearch, BsList, BsBagCheck } from "react-icons/bs";
 
 export default function Womens({ showMessage }) {
   const [products, setProducts] = useState([]);
@@ -31,40 +32,45 @@ export default function Womens({ showMessage }) {
     <>
       <p style={{ marginTop: "8vmin" }}>WOMEN'S CLOTHING</p>
       <Container>
-        <Form style={{ marginTop: "6vmin", width: "100%" }}>
-          <InputGroup bg="dark" data-bs-theme="light" className="mb-3">
-            <InputGroup.Text id="inputGroupPrepend">
-              <i class="bi bi-search"></i>
-            </InputGroup.Text>
-            <Form.Control
-              aria-label="Text input with dropdown button"
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search Products"
-            />
-            <DropdownButton
-              variant="outline-secondary"
-              title="Filters"
-              id="input-group-dropdown-2"
-              align="end"
-            >
-              <Dropdown.Item href="/products/category/electronics">
-                Electronics
-              </Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item href="/products/category/jewerely">
-                Jewerely
-              </Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item href="/products/category/men's clothing">
-                Men's Clothing
-              </Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item href="/products/category/women's clothing">
-                Womes's Clothing
-              </Dropdown.Item>
-            </DropdownButton>
-          </InputGroup>
+        <Form style={{ marginTop: "6vmin" }}>
+          <Row>
+            <Col xs={12} sm={10} md={8} lg={12} xl={12} xxl={12}>
+              <InputGroup bg="dark" data-bs-theme="light" className="mb-3">
+                <InputGroup.Text id="inputGroupPrepend">
+                  <BsSearch />
+                </InputGroup.Text>
+                <Form.Control
+                  aria-label="Text input with dropdown button"
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search Products"
+                />
+                <DropdownButton
+                  variant="outline-secondary"
+                  title="Filters"
+                  id="input-group-dropdown-2"
+                  align="end"
+                >
+                  <Dropdown.Item href="/products/category/electronics">
+                    Electronics
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item href="/products/category/jewerely">
+                    Jewerely
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item href="/products/category/men's clothing">
+                    Men's Clothing
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item href="/products/category/women's clothing">
+                    Womes's Clothing
+                  </Dropdown.Item>
+                </DropdownButton>
+              </InputGroup>
+            </Col>
+          </Row>
         </Form>
+
         <Row>
           {products
             .filter((products) => {
@@ -74,31 +80,70 @@ export default function Womens({ showMessage }) {
                     products.category.toLowerCase().includes(search);
             })
             .map((product) => (
-              <Col key={product.id} md={3}>
-                <Card variant="dark" key={product.id} style={{ width: "100%" }}>
+              <Col
+                key={product.id}
+                xs={12}
+                sm={10}
+                md={8}
+                lg={6}
+                xl={4}
+                xxl={3}
+              >
+                <Card
+                  variant="dark"
+                  key={product.id}
+                  style={{ width: "100%", height: "100%" }}
+                >
                   <Link to={`/products/${product.id}`}>
                     <Card.Img
                       variant="top"
                       src={product.image}
-                      style={{ width: "100%" }}
+                      style={{ width: "80%", height: "100%" }}
                     />
                   </Link>
-
-                  <Card.Body>
-                    <Card.Text>{product.title}</Card.Text>
-                    <Card.Title>${product.price}</Card.Title>
+                  <Card.ImgOverlay>
                     <Button
                       style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
                         border: "none",
                         color: "black",
-                        backgroundColor: "lightgray",
+                        backgroundColor: "white",
+                      }}
+                      onClick={() => {
+                        navigate(`/products/${product.id}`);
+                      }}
+                    >
+                      <BsList />
+                    </Button>
+
+                    <Button
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        right: 0,
+                        border: "none",
+                        color: "black",
+                        backgroundColor: "white",
                       }}
                       onClick={() => {
                         navigate(`#`);
                       }}
                     >
-                      +
+                      <BsBagCheck />
                     </Button>
+                  </Card.ImgOverlay>
+                  <Card.Body
+                    style={{
+                      position: "absolute",
+                      bottom: 0,
+                      backgroundColor: "white",
+                      width: "80%",
+                      height: "15%",
+                    }}
+                  >
+                    <Card.Text>${product.price}</Card.Text>
                   </Card.Body>
                 </Card>
               </Col>

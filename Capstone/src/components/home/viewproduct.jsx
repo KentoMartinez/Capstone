@@ -43,17 +43,9 @@ export default function ViewProducts({showMessage}) {
               />
             </div>
             <div className="info-container">
-              <ListGroup variant="flush">
-                <ListGroup.Item>
-                  <Button
-                   variant="dark"
-                    onClick={() => {
-                      navigate(`/products`);
-                    }}
-                  >
-                    Back
-                  </Button>
-                </ListGroup.Item>
+              <ListGroup variant="flush"
+              style={{marginInline: "25%"}}>
+              
                 <Card.Text>
                   {" "}
                   Price: ${viewProductInfo.price}

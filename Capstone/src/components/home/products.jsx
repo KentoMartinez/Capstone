@@ -9,7 +9,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { Link, useNavigate } from "react-router-dom";
-import { BsFillSearchHeartFill, BsBagCheck} from "react-icons/bs"
+import { BsSearch, BsList, BsBagCheck } from "react-icons/bs";
 
 export default function Products({ showMessage }) {
   const [products, setProducts] = useState([]);
@@ -34,10 +34,12 @@ export default function Products({ showMessage }) {
   return (
     <>
       <Container>
-        <Form style={{ marginTop: "6vmin", width: "100%" }}>
+        <Form style={{ marginTop: "6vmin"}}>
+          <Row>
+          <Col xs={12} sm={10} md={8} lg={12} xl={12} xxl={12}>
           <InputGroup bg="dark" data-bs-theme="light" className="mb-3">
             <InputGroup.Text id="inputGroupPrepend">
-            <BsFillSearchHeartFill />
+              <BsSearch />
             </InputGroup.Text>
             <Form.Control
               aria-label="Text input with dropdown button"
@@ -67,45 +69,56 @@ export default function Products({ showMessage }) {
               </Dropdown.Item>
             </DropdownButton>
           </InputGroup>
+          </Col>
+          </Row>
         </Form>
         <Row>
           <h2>BEST SELLERS</h2>
-          <Col>
-          
-          </Col>
+          <Col></Col>
         </Row>
         <Row>
-          
-            {products
-              .filter((products) => {
-                return search.toLowerCase() === ""
-                  ? products
-                  : products.title.toLowerCase().includes(search) ||
-                      products.category.toLowerCase().includes(search);
-              })
-              .map((product) => (
-                <Col key={product.id} md={3}>
-                <Card
-                  variant="dark"
-                  key={product.id}
-                  style={{ width: "100%" }}
-                >
+          {products
+            .filter((products) => {
+              return search.toLowerCase() === ""
+                ? products
+                : products.title.toLowerCase().includes(search) ||
+                    products.category.toLowerCase().includes(search);
+            })
+            .map((product) => (
+              <Col key={product.id} xs={12} sm={10} md={8} lg={6} xl={4} xxl={3}>
+                <Card variant="dark" key={product.id} style={{ width: "100%", height: "100%" }}>
                   <Link to={`/products/${product.id}`}>
                     <Card.Img
                       variant="top"
                       src={product.image}
-                      style={{ width: "100%" }}
+                      style={{ width: "80%", height: "100%" }}
                     />
                   </Link>
-
-                  <Card.Body>
-                    <Card.Text>{product.title}</Card.Text>
-                    <Card.Title>${product.price}</Card.Title>
+                  <Card.ImgOverlay>
                     <Button
                       style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
                         border: "none",
                         color: "black",
-                        backgroundColor: "lightgray",
+                        backgroundColor: "white",
+                      }}
+                      onClick={() => {
+                        navigate(`/products/${product.id}`);
+                      }}
+                    >
+                      <BsList />
+                    </Button>
+
+                    <Button
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        right: 0,
+                        border: "none",
+                        color: "black",
+                        backgroundColor: "white",
                       }}
                       onClick={() => {
                         navigate(`#`);
@@ -113,11 +126,19 @@ export default function Products({ showMessage }) {
                     >
                       <BsBagCheck />
                     </Button>
+                  </Card.ImgOverlay>
+                  <Card.Body style={{
+                        position: "absolute",
+                        bottom: 0,
+                        backgroundColor: "white",
+                        width: "80%",
+                        height: "15%"
+                      }}>
+                    <Card.Text>${product.price}</Card.Text>
                   </Card.Body>
                 </Card>
-                </Col>
-              ))}
-         
+              </Col>
+            ))}
         </Row>
       </Container>
     </>

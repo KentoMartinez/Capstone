@@ -3,7 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useState } from "react";
-import { BsPerson } from "react-icons/bs"
+import { BsPersonPlus } from "react-icons/bs"
 
 export default function NavbarGuest() {
   const [show, setShow] = useState(false);
@@ -29,7 +29,7 @@ export default function NavbarGuest() {
           <Nav className="flex-row">
           
 
-            <Nav.Link href="/"><BsPerson /></Nav.Link>
+            <Nav.Link href="/"><BsPersonPlus /></Nav.Link>
       
 
           

@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BsBag } from "react-icons/bs";
+import { BsBag, BsFillStarFill } from "react-icons/bs";
 
 export default function NavbarAuth() {
   const [show, setShow] = useState(false);
@@ -23,16 +23,14 @@ export default function NavbarAuth() {
           data-bs-theme="dark"
         >
           <Container fluid>
-            <Nav.Link onClick={handleShow} style={{ color: "white" }}>
-              MONACO
-            </Nav.Link>
+            <Nav>
+              <Nav.Link onClick={handleShow}>MONACO</Nav.Link>
+            </Nav>
 
             <Nav className="flex-row">
-            
-
-              <Nav.Link href="/cart"><BsBag/ ></Nav.Link>
-
-            
+              <Nav.Link href="/cart">
+                <BsBag />
+              </Nav.Link>
             </Nav>
 
             <Navbar.Offcanvas
@@ -44,7 +42,7 @@ export default function NavbarAuth() {
             >
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title style={{ color: "white" }}>
-                  Trending 
+                  Trending
                 </Offcanvas.Title>
               </Offcanvas.Header>
 
@@ -57,14 +55,16 @@ export default function NavbarAuth() {
                   <Nav.Link href="/products/category/jewerely">
                     New Releases
                   </Nav.Link>
-                  <Nav.Link href="/products">Home</Nav.Link>
+                  <Nav.Link href="/products">
+                    Home <BsFillStarFill />
+                  </Nav.Link>
                 </Nav>
                 <br />
-            
-                  <Offcanvas.Title style={{ color: "white" }}>
-                    Categories
-                  </Offcanvas.Title>
-               
+
+                <Offcanvas.Title style={{ color: "white" }}>
+                  Categories
+                </Offcanvas.Title>
+
                 <br />
                 <Nav>
                   <Nav.Link href="/products/category/electronics">
@@ -80,23 +80,23 @@ export default function NavbarAuth() {
                     Women's Clothing
                   </Nav.Link>
                   <br />
-            
-            <Offcanvas.Title style={{ color: "white" }}>
-              {" " + localStorage.getItem("username")}
-            </Offcanvas.Title>
-         
-          <br />
-          
-              <Nav.Link href="/profile">Profile</Nav.Link>
-              <Nav.Link
-                onClick={() => {
-                  localStorage.clear();
-                  navigate("/");
-                }}
-                style={{ color: "red" }}
-              >
-                Log out
-              </Nav.Link>
+
+                  <Offcanvas.Title style={{ color: "white" }}>
+                    {" " + localStorage.getItem("username")}
+                  </Offcanvas.Title>
+
+                  <br />
+
+                  <Nav.Link href="/profile">Profile</Nav.Link>
+                  <Nav.Link
+                    onClick={() => {
+                      localStorage.clear();
+                      navigate("/");
+                    }}
+                    style={{ color: "red" }}
+                  >
+                    Log out
+                  </Nav.Link>
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

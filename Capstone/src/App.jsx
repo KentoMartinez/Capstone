@@ -12,7 +12,7 @@ import Electronics from "./components/categories/electronics";
 import Mens from "./components/categories/mensclothing";
 import Womens from "./components/categories/womensclothing";
 import Cart from "./components/user/cart";
-
+import Profile from "./components/user/profile"
 import ToastContainer from "react-bootstrap/ToastContainer";
 import Toast from "react-bootstrap/Toast";
 import Navbars from "./components/navbars/navbar";
@@ -50,7 +50,7 @@ function App() {
           element={<Womens showMessage={showMessage}/>}
         />
            <Route path="/cart" element={<Cart showMessage={showMessage}/>} />
-
+           <Route path="/profile" element={<Profile showMessage={showMessage}/>} />
       </Routes>
    
       </div>

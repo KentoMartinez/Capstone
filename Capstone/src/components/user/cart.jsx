@@ -2,30 +2,35 @@ import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 
-
-export default function Carts({showMessage}) {
+export default function Carts({ showMessage }) {
   const [carts, setCarts] = useState([]);
-  const username = localStorage.getItem("username");
+  localStorage.setItem("username", JSON.stringify(superUser));
+
   useEffect(() => {
     function fetchCarts() {
       fetch(`https://fakestoreapi.com/carts`)
         .then((res) => res.json())
         .then((json) => {
-          setCarts(json);
-                showMessage( username + "'s cart" ,'Success');
+          
+          showMessage(username + "'s cart", "Success");
+          const cartUser = json.filter(
+            (cart) => cart.userId === username
+          );
+          setCarts(cartUser);
+          console.log(cartUser);
         })
         .catch((error) => {
-          showMessage(error.message,'danger');
+          showMessage(error.message, "danger");
         });
     }
     fetchCarts();
   }, []);
   return (
     <>
-      <h3 style={{ marginTop: "5.5vmin"}}>Cart</h3>
+      <h3 style={{ marginTop: "5.5vmin" }}>
+        Your Shopping Cart</h3>
       {carts.map((cart) => (
-        <Card key={cart.id}
-        style={{ width: "70vmin" }}>
+        <Card key={cart.id} style={{ width: "70vmin" }}>
           <Card.Body>
             <ListGroup variant="flush">
               <ListGroup.Item>Cart # {cart.id}</ListGroup.Item>
@@ -37,7 +42,7 @@ export default function Carts({showMessage}) {
                   {cart.products.map((product) => (
                     <ListGroup.Item key={product.productId}>
                       Product # {product.productId}, Quantity:{" "}
-                      {product.quantity}, 
+                      {product.quantity},
                     </ListGroup.Item>
                   ))}
                 </ListGroup>

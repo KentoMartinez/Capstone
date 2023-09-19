@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
 import ListGroup from "react-bootstrap/ListGroup";
 
-export default function Profile({showMessage}) {
+export default function Profile({ showMessage }) {
   const [users, setUsers] = useState([]);
   const username = localStorage.getItem("username");
 
@@ -11,31 +13,64 @@ export default function Profile({showMessage}) {
       fetch(`https://fakestoreapi.com/users`)
         .then((res) => res.json())
         .then((json) => {
-         setUsers(json);
-        showMessage(username +"'s Profile" ,'Success');
+          const superUser = json.filter((user) => user.username === username);
+          setUsers(superUser);
+          showMessage(username + "'s Profile", "Success");
         })
         .catch((error) => {
-          showMessage(error.message,'danger');
+          showMessage(error.message, "danger");
         });
     }
     fecthUsers();
   }, []);
   return (
     <>
-      <h3 style={{ marginTop: "5.5vmin" }}>Profile</h3>
+      <h4>{" " + localStorage.getItem("username")}</h4> <br />
       {users.map((user) => (
-        <Card key={user.id} style={{ width: "70vmin" }}>
-          <Card.Body>
-            <ListGroup variant="flush">
-              <ListGroup.Item> User ID: {user.id}</ListGroup.Item>
-              <ListGroup.Item> Name: {user.name.firstname}{" "}{user.name.lastname}</ListGroup.Item>
-              <ListGroup.Item> Username: {user.username}</ListGroup.Item>
-              <ListGroup.Item> Email: {user.email}</ListGroup.Item>
-              <ListGroup.Item> Phone: {user.phone}</ListGroup.Item>
-              <ListGroup.Item> Address: {user.address.number}{" "}{user.address.street}{", "}{user.address.city}{" "}{user.address.zipcode}</ListGroup.Item>
-            </ListGroup>
-          </Card.Body>
-        </Card>
+        <Form key={user.id} style={{ width: "100%" }}>
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="formGridPassword" style={{ width: "100%" }}>
+              <Form.Label>Name</Form.Label> <br />
+              <Form.Text>
+                {user.name.firstname} {user.name.lastname}
+              </Form.Text>
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="formGridEmail" style={{ width: "100%" }}>
+              <Form.Label>Username</Form.Label> <br />
+              <Form.Text>{user.username}</Form.Text>
+            </Form.Group>
+      
+          </Row>
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="formGridAddress1" style={{ width: "100%" }}>
+              <Form.Label>Email</Form.Label> <br />
+              <Form.Text>{user.email}</Form.Text>
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="formGridAddress2" style={{ width: "100%" }}>
+              <Form.Label>Address</Form.Label> <br />
+              <Form.Text>
+                {" "}
+                {user.address.number} {user.address.street}
+              </Form.Text>
+            </Form.Group>
+          </Row>
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="formGridCity" style={{ width: "100%" }}>
+              <Form.Label>City</Form.Label> <br />
+              <Form.Text>{user.address.city}</Form.Text>
+            </Form.Group>
+            <Form.Group as={Col} controlId="formGridState" style={{ width: "100%" }}>
+              <Form.Label>State</Form.Label> <br />
+              <Form.Text>Arizona</Form.Text>
+            </Form.Group>
+            <Form.Group as={Col} controlId="formGridZip" style={{ width: "100%" }}>
+              <Form.Label>Zip</Form.Label> <br />
+              <Form.Text> {user.address.zipcode}</Form.Text>
+            </Form.Group>
+          </Row>
+        </Form>
       ))}
     </>
   );
