@@ -79,7 +79,7 @@ export default function LogIn({showMessage}) {
         <Button
           onClick={() => {
             localStorage.removeItem("username") 
-            navigate(`/products`)
+            navigate(`/guestproducts`)
           }}
           variant="secondary"
         >

@@ -4,12 +4,23 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BsBag, BsFillStarFill } from "react-icons/bs";
+
+import {
+  BsBag,
+  BsStar,
+  BsHouseFill,
+  BsPlug,
+  BsGem,
+  BsGenderMale,
+  BsGenderFemale,
+  BsPersonFill,
+  BsBoxArrowInLeft,
+} from "react-icons/bs";
 
 export default function NavbarAuth() {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [showLeft, setShowLeft] = useState(false);
+  const handleCloseLeft = () => setShowLeft(false);
+  const handleShowLeft = () => setShowLeft(true);
   const navigate = useNavigate();
 
   return (
@@ -24,7 +35,7 @@ export default function NavbarAuth() {
         >
           <Container fluid>
             <Nav>
-              <Nav.Link onClick={handleShow}>MONACO</Nav.Link>
+              <Nav.Link onClick={handleShowLeft}>MONACO</Nav.Link>
             </Nav>
 
             <Nav className="flex-row">
@@ -37,66 +48,53 @@ export default function NavbarAuth() {
               bg="dark"
               data-bs-theme="dark"
               placement="start"
-              show={show}
-              onHide={handleClose}
+              show={showLeft}
+              onHide={handleCloseLeft}
             >
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title style={{ color: "white" }}>
-                  Trending
+                  MONACO
                 </Offcanvas.Title>
               </Offcanvas.Header>
 
               <Offcanvas.Body>
                 <Nav>
-                  <Nav.Link href="/products/category/electronics">
-                    Best Sellers
-                  </Nav.Link>
-
-                  <Nav.Link href="/products/category/jewerely">
-                    New Releases
-                  </Nav.Link>
                   <Nav.Link href="/products">
-                    Home <BsFillStarFill />
+                    <BsHouseFill /> Home
+                  </Nav.Link>
+                  <Nav.Link href="/products/category/electronics">
+                    <BsStar /> Best Sellers
                   </Nav.Link>
                 </Nav>
-                <br />
 
-                <Offcanvas.Title style={{ color: "white" }}>
-                  Categories
-                </Offcanvas.Title>
-
-                <br />
                 <Nav>
                   <Nav.Link href="/products/category/electronics">
-                    Electronics
+                    <BsPlug /> Electronics
                   </Nav.Link>
                   <Nav.Link href="/products/category/jewerely">
-                    Jewelery
+                    <BsGem /> Jewelery
                   </Nav.Link>
                   <Nav.Link href="/products/category/men's clothing">
-                    Men's Clothing
+                    <BsGenderMale /> Men's Clothing
                   </Nav.Link>
                   <Nav.Link href="/products/category/women's clothing">
-                    Women's Clothing
+                    <BsGenderFemale /> Women's Clothing
                   </Nav.Link>
                   <br />
-
-                  <Offcanvas.Title style={{ color: "white" }}>
-                    {" " + localStorage.getItem("username")}
-                  </Offcanvas.Title>
-
-                  <br />
-
-                  <Nav.Link href="/profile">Profile</Nav.Link>
-                  <Nav.Link
-                    onClick={() => {
-                      localStorage.clear();
-                      navigate("/");
-                    }}
-                    style={{ color: "red" }}
-                  >
-                    Log out
-                  </Nav.Link>
+                  <Nav>
+                    <Nav.Link href="/profile">
+                      <BsPersonFill />
+                      {" " + localStorage.getItem("username")}
+                    </Nav.Link>
+                    <Nav.Link
+                      onClick={() => {
+                        localStorage.clear();
+                        navigate("/") ;
+                      }}
+                    >
+                      <BsBoxArrowInLeft /> Log out
+                    </Nav.Link>
+                  </Nav>
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

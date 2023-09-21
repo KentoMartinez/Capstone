@@ -3,7 +3,17 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useState } from "react";
-import { BsPersonPlus } from "react-icons/bs"
+import {
+  BsPersonPlus,
+  BsStar,
+  BsHouseFill,
+  BsPlug,
+  BsGem,
+  BsGenderMale,
+  BsGenderFemale,
+  BsPersonFill,
+  BsBoxArrowInLeft,
+} from "react-icons/bs";
 
 export default function NavbarGuest() {
   const [show, setShow] = useState(false);
@@ -15,73 +25,56 @@ export default function NavbarGuest() {
     <>
       {[false].map((expand) => (
         <Navbar
-        fixed="top"
-        key={expand}
-        expand={expand}
-        bg="dark"
-        data-bs-theme="dark"
-      >
-        <Container fluid>
-          <Nav.Link onClick={handleShow} style={{ color: "white" }}>
-            MONACO
-          </Nav.Link>
+          fixed="top"
+          key={expand}
+          expand={expand}
+          bg="dark"
+          data-bs-theme="dark"
+        >
+          <Container fluid>
+            <Nav>
+            <Nav.Link onClick={handleShow}>
+              MONACO
+            </Nav.Link>
+            </Nav>
+            <Nav className="flex-row">
+              <Nav.Link href="/">
+                <BsPersonPlus />
+              </Nav.Link>
+            </Nav>
 
-          <Nav className="flex-row">
-          
-
-            <Nav.Link href="/"><BsPersonPlus /></Nav.Link>
-      
-
-          
-          </Nav>
-
-          <Navbar.Offcanvas
-            bg="dark"
-            data-bs-theme="dark"
-            placement="start"
-            show={show}
-            onHide={handleClose}
-          >
-            <Offcanvas.Header closeButton>
-              <Offcanvas.Title style={{ color: "white" }}>
-                Treding 
-              </Offcanvas.Title>
-            </Offcanvas.Header>
-
-            <Offcanvas.Body>
-              <Nav>
-                <Nav.Link href="/products/category/electronics">
-                  Best Sellers
-                </Nav.Link>
-
-                <Nav.Link href="/products/category/jewerely">
-                  New Releases
-                </Nav.Link>
-                <Nav.Link href="/products">Home</Nav.Link>
-              </Nav>
-              <br />
-          
+            <Navbar.Offcanvas
+              bg="dark"
+              data-bs-theme="dark"
+              placement="start"
+              show={show}
+              onHide={handleClose}
+            >
+              <Offcanvas.Header closeButton>
                 <Offcanvas.Title style={{ color: "white" }}>
-                  Categories
+                  MONACO
                 </Offcanvas.Title>
-             
-              <br />
-              <Nav>
-                <Nav.Link href="/products/category/electronics">
-                  Electronics
-                </Nav.Link>
-                <Nav.Link href="/products/category/jewerely">
-                  Jewelery
-                </Nav.Link>
-                <Nav.Link href="/products/category/men's clothing">
-                  Men's Clothing
-                </Nav.Link>
-                <Nav.Link href="/products/category/women's clothing">
-                  Women's Clothing
-                </Nav.Link>
-               </Nav>
-             </Offcanvas.Body>
-           </Navbar.Offcanvas>
+              </Offcanvas.Header>
+
+              <Offcanvas.Body>
+                <Nav>
+                  <Nav.Link href="/guestproducts">
+                    <BsHouseFill /> Home
+                  </Nav.Link>
+                  <Nav.Link href="/products/category/electronics">
+                    <BsStar /> Best Sellers
+                  </Nav.Link>
+                </Nav>
+
+                <Nav>
+                 
+                  <br />
+                  <Nav>
+                    
+                  </Nav>
+                </Nav>
+              </Offcanvas.Body>
+            </Navbar.Offcanvas>
           </Container>
         </Navbar>
       ))}

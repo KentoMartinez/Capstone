@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Nav from "react-bootstrap/Nav";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -10,9 +9,9 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { Link, useNavigate } from "react-router-dom";
-import { BsSearch, BsList, BsBagCheck, BsPerson } from "react-icons/bs";
+import { BsSearch, BsList } from "react-icons/bs";
 
-export default function Products({ showMessage }) {
+export default function Guest({ showMessage }) {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
@@ -34,9 +33,7 @@ export default function Products({ showMessage }) {
 
   return (
     <>
-   
       <Container>
-   
         <Form style={{ marginTop: "6vmin"}}>
           <Row>
           <Col xs={12} sm={10} md={8} lg={12} xl={12} xxl={12}>
@@ -75,7 +72,16 @@ export default function Products({ showMessage }) {
           </Col>
           </Row>
         </Form>
+        <Container bg="dark" data-bs-theme="light">
+        <Row>
+          <h2>BEST SELLER</h2>
+          <Col>
+          <Card variant="dark" style={{ width: "100%", height: "100%" }}>
 
+          </Card>
+          </Col>
+        </Row>
+        </Container>
         <Row>
           {products
             .filter((products) => {
@@ -99,7 +105,7 @@ export default function Products({ showMessage }) {
                       style={{
                         position: "absolute",
                         top: 0,
-                        left: 0,
+                        right: 0,
                         border: "none",
                         color: "black",
                         backgroundColor: "white",
@@ -109,22 +115,6 @@ export default function Products({ showMessage }) {
                       }}
                     >
                       <BsList />
-                    </Button>
-
-                    <Button
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        right: 0,
-                        border: "none",
-                        color: "black",
-                        backgroundColor: "white",
-                      }}
-                      onClick={() => {
-                        navigate(`#`);
-                      }}
-                    >
-                      <BsBagCheck />
                     </Button>
                   </Card.ImgOverlay>
                   <Card.Body style={{
@@ -143,22 +133,4 @@ export default function Products({ showMessage }) {
       </Container>
     </>
   );
-}
-{
-  /*<Container>
-         <Row>
-           {products.map((product) => (
-             <Col key={product.id}>
-                   {product.category} <br />
-                   <img src={product.image}></img> <br />
-                   {product.title} <br />
-                   {product.description} <br />
-                   {product.id} <br />
-                   {product.price} <br />
-                   {product.rating.rate} <br />
-                   {product.rating.count} <br />
-             </Col>
-           ))}
-           </Row>
-       </Container>*/
 }

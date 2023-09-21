@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import ListGroup from "react-bootstrap/ListGroup";
 
 export default function Profile({ showMessage }) {
   const [users, setUsers] = useState([]);
@@ -14,7 +13,9 @@ export default function Profile({ showMessage }) {
         .then((res) => res.json())
         .then((json) => {
           const superUser = json.filter((user) => user.username === username);
+          console.log(superUser);
           setUsers(superUser);
+          localStorage.setItem("superUser", JSON.stringify(superUser.at(0)));
           showMessage(username + "'s Profile", "Success");
         })
         .catch((error) => {
@@ -25,7 +26,7 @@ export default function Profile({ showMessage }) {
   }, []);
   return (
     <>
-      <h4>{" " + localStorage.getItem("username")}</h4> <br />
+      <h5>{" " + localStorage.getItem("username")}'s Profile</h5> <br />
       {users.map((user) => (
         <Form key={user.id} style={{ width: "100%" }}>
           <Row className="mb-3">
