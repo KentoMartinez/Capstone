@@ -66,6 +66,7 @@ export default function LogIn({showMessage}) {
           />
         </Form.Group>
         <br />
+        <div className="flex-column">
         <Button variant="primary" type="submit">
           Log In
         </Button>
@@ -83,9 +84,11 @@ export default function LogIn({showMessage}) {
           }}
           variant="secondary"
         >
-          Continue as a Guess
+          Guest
         </Button>
+        </div>
       </Form>
+      
     </>
   );
 }

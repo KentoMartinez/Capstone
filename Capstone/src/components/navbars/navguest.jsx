@@ -5,27 +5,26 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { useState } from "react";
 import {
   BsPersonPlus,
-  BsStar,
   BsHouseFill,
 } from "react-icons/bs";
 
 export default function NavbarGuest() {
-  const [show, setShow] = useState(false);
+  const [showLeft, setShowLeft] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  
+  const handleCloseLeft = () => setShowLeft(false);
+  const handleShowLeft = () => setShowLeft(true);
 
   return (
     <>
-      {[false].map((expand) => (
         <Navbar
           fixed="top"
-          key={expand}
-          expand={expand}
+          bg="dark"
+           data-bs-theme="dark"
         >
           <Container fluid>
             <Nav>
-            <Nav.Link onClick={handleShow}>
+            <Nav.Link onClick={handleShowLeft}>
               MONACO
             </Nav.Link>
             </Nav>
@@ -34,29 +33,32 @@ export default function NavbarGuest() {
                 <BsPersonPlus />
               </Nav.Link>
             </Nav>
-
-            <Navbar.Offcanvas
+</Container>
+</Navbar>
+            <Offcanvas
+             fluid="md"
+             bg="dark"
+             data-bs-theme="dark"
               placement="start"
-              show={show}
-              onHide={handleClose}
+              show={showLeft}
+              onHide={handleCloseLeft}
             >
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title>
-                  MONACO
+                  Monaco
                 </Offcanvas.Title>
               </Offcanvas.Header>
 
               <Offcanvas.Body>
                 <Nav>
-                  <Nav.Link href="/guestproducts">
+                  <Nav.Link className="text-white" href="/guestproducts">
                     <BsHouseFill /> Home
                   </Nav.Link>
                 </Nav>
               </Offcanvas.Body>
-            </Navbar.Offcanvas>
-          </Container>
-        </Navbar>
-      ))}
+            </Offcanvas>
+
+      
     </>
   );
 }

@@ -4,23 +4,27 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ReactStars from "react-rating-stars-component";
 import Card from "react-bootstrap/Card";
+import Badge from "react-bootstrap/Badge";
 import Button from "react-bootstrap/Button";
+import { Link, useNavigate } from "react-router-dom";
+import { BsList, BsBagPlusFill } from "react-icons/bs";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import { Link, useNavigate } from "react-router-dom";
-import { BsSearch, BsList, BsBagCheckFill, BsPerson } from "react-icons/bs";
+import { BsSearch } from "react-icons/bs";
+import { addToCart } from "../user/cart";
 
-export default function Electro({ showMessage }) {
+export default function Products({ showMessage }) {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [rating, setRating] = useState(0);
-  const [pricing, setPricing] = useState(0); 
+  const [pricing, setPricing] = useState(0);
+  const [cart, setCart] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    function fetchElectro() {
+    function fetchElectronics() {
       fetch("https://fakestoreapi.com/products/category/electronics")
         .then((res) => res.json())
 
@@ -35,7 +39,7 @@ export default function Electro({ showMessage }) {
           showMessage(error.message, "danger");
         });
     }
-    fetchElectro();
+    fetchElectronics();
   }, []);
 
   const ratingChanged = (newRating) => {
@@ -47,14 +51,14 @@ export default function Electro({ showMessage }) {
     console.log(newPricing.target.value);
   };
   const clearFilter = () => {
-    setRating (0);
-    setPricing (0);
+    setRating ([]);
+    setPricing ([]);
     console.log(rating, pricing);
   };
   return (
     <>
       <p style={{ marginTop: "8vmin" }}>ELECTRONICS</p>
-      <Container>
+      <Container fluid="md">
         <Form style={{ marginTop: "6vmin" }}>
           <Row>
             <Col xs={12} sm={10} md={8} lg={12} xl={12} xxl={12}>
@@ -83,7 +87,7 @@ export default function Electro({ showMessage }) {
                       emptyIcon={<i className="far fa-star"></i>}
                       halfIcon={<i className="fa fa-star-half-alt"></i>}
                       fullIcon={<i className="fa fa-star"></i>}
-                      activeColor="#000000"
+                      activeColor="#f4d004aa"
                     />
                   </Dropdown.Item>
                   <Dropdown.Item>
@@ -91,15 +95,17 @@ export default function Electro({ showMessage }) {
                    >
                       Price Range:</Form.Label> <br />
                     <Form.Range
-                    onRateChange={1000}
-                     onChange={pricingChanged}
-                     activeColor="#000000"
+                      min={1}
+                      max={1000}
+                      step="0.5"
+                      id="customRange3"
+                      onChange={pricingChanged}
                       />
                   </Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item>
                     <Button onClick={clearFilter} 
-                    variant="dark">Clear Filter</Button>
+                    variant="primary">Clear Filters</Button>
                   </Dropdown.Item>
                 </DropdownButton>
               </InputGroup>
@@ -136,15 +142,56 @@ export default function Electro({ showMessage }) {
                     <Card.Img
                       variant="top"
                       src={product.image}
-                      style={{ width: "100%", height: "50%" }}
+                      style={{ width: "70%", height: "70%" }}
                     />
                     </Link>
-                  <Card.ImgOverlay>
+                    <Card.ImgOverlay>
+                    <Card.Text
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 6,
+                        border: "none",
+                        color: "black",
+                        backgroundColor: "white",
+                        padding: "10px",
+                      }}
+                    >
+                      <b>${product.price}</b>
+                    </Card.Text>
+
                     <Button
                       style={{
                         position: "absolute",
                         top: 0,
-                        left: 0,
+                        right: 6,
+                        border: "none",
+                        color: "black",
+                        backgroundColor: "white",
+                        padding: "10px",
+                      }}
+                      onClick={() => addToCart(product, setCart)}
+                    >
+                      <BsBagPlusFill />
+                      <Badge
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          right: -5,
+                          border: "none",
+                          padding: "4px",
+                        }}
+                        bg="light"
+                        text="dark"
+                      >
+                        {}
+                      </Badge>
+                    </Button>
+                    <Button
+                      style={{
+                        position: "absolute",
+                        top: 34,
+                        right: 6,
                         border: "none",
                         color: "black",
                         backgroundColor: "white",
@@ -156,23 +203,6 @@ export default function Electro({ showMessage }) {
                     >
                       <BsList />
                     </Button>
-
-                    <Button
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        right: 0,
-                        border: "none",
-                        color: "black",
-                        backgroundColor: "white",
-                        padding: "10px",
-                      }}
-                      onClick={() => {
-                        navigate(`#`);
-                      }}
-                    >
-                      <BsBagCheckFill />
-                    </Button>
                   </Card.ImgOverlay>
                   <Card.Body
                     style={{
@@ -180,13 +210,13 @@ export default function Electro({ showMessage }) {
                       bottom: 0,
                       backgroundColor: "white",
                       width: "80%",
-                      height: "55%",
+                      height: "45%",
                       padding: "10px",
                     }}
                   >
-                     <Card.Text>
+                    <Card.Text>
                       {product.title} <br /> {product.rating.rate} (
-                      {product.rating.count} Reviews) <br /> ${product.price}
+                      {product.rating.count} Reviews)
                     </Card.Text>
                   </Card.Body>
                 </Card>

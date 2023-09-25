@@ -103,18 +103,14 @@ function Cart() {
               alt={`Product ${item.productId}`}
             />
 
-            <b>${item.price}</b>
+         
 
-            <Button
-              variant="dark"
-              onClick={() => removeFromCart(item.productId)}
-            >
-              <BsBagXFill />{" "}
-            </Button>
+            
             <Card.Text>{item.title}</Card.Text>
-
+            <b>${item.price}</b>
             <div style={{ display: "flex", alignItems: "center" }}>
               <div>
+              
                 <Button
                   variant="dark"
                   onClick={() => increaseQuantity(item.productId)}
@@ -128,22 +124,26 @@ function Cart() {
                 >
                   <BsBagDash />
                 </Button>
+                <Button
+              variant="danger"
+              onClick={() => removeFromCart(item.productId)}
+            >
+              Remove
+            </Button>
               </div>
             </div>
           </div>
         ))}
       </Card.Body>
       <br />
-      <Offcanvas.Title>Check Out</Offcanvas.Title>
+      <Offcanvas.Title>Summary</Offcanvas.Title>
       <br />
-      <div style={{ display: "flex", alignItems: "center" }}>
         <Card.Text>
           Total Amount <b>${totalAmount}</b>
         </Card.Text>
-        <Button variant="dark" onClick={checkout}>
-          <BsBagCheckFill />{" "}
+        <Button variant="success" onClick={checkout}>
+          Check Out
         </Button>
-      </div>
     </>
   );
 }

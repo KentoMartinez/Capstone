@@ -22,14 +22,12 @@ export default function Products({ showMessage }) {
   const [pricing, setPricing] = useState(0);
   const [cart, setCart] = useState({});
   const navigate = useNavigate();
-  const [count, setCount] = useState(0);
 
   useEffect(() => {
     function fetchProducts() {
       fetch("https://fakestoreapi.com/products")
         .then((res) => res.json())
         .then((json) => {
-          console.log(json);
           json.sort((a, b) =>
             parseFloat(b.price) > parseFloat(a.price) ? 1 : -1
           );
@@ -44,16 +42,15 @@ export default function Products({ showMessage }) {
 
   const ratingChanged = (newRating) => {
     setRating(newRating);
-    console.log(newRating);
   };
+
   const pricingChanged = (newPricing) => {
     setPricing(newPricing.target.value);
-    console.log(newPricing.target.value);
   };
+  
   const clearFilter = () => {
     setRating([]);
     setPricing([]);
-    console.log(rating, pricing);
   };
 
   return (
@@ -87,7 +84,7 @@ export default function Products({ showMessage }) {
                       emptyIcon={<i className="far fa-star"></i>}
                       halfIcon={<i className="fa fa-star-half-alt"></i>}
                       fullIcon={<i className="fa fa-star"></i>}
-                      activeColor="#000000"
+                      activeColor="#f4d004aa"
                     />
                   </Dropdown.Item>
                   <Dropdown.Item>
@@ -102,8 +99,8 @@ export default function Products({ showMessage }) {
                   </Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item>
-                    <Button onClick={clearFilter} variant="secondary">
-                      Clear Filter
+                    <Button onClick={clearFilter} variant="primary">
+                      Clear Filters
                     </Button>
                   </Dropdown.Item>
                 </DropdownButton>
@@ -215,7 +212,7 @@ export default function Products({ showMessage }) {
                   >
                     <Card.Text>
                       {product.title} <br /> {product.rating.rate} (
-                      {product.rating.count} Reviews) <br />
+                      {product.rating.count} Reviews)
                     </Card.Text>
                   </Card.Body>
                 </Card>

@@ -1,24 +1,28 @@
 import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import ReactStars from "react-rating-stars-component";
 import Col from "react-bootstrap/Col";
+import ReactStars from "react-rating-stars-component";
 import Card from "react-bootstrap/Card";
+import Badge from "react-bootstrap/Badge";
 import Button from "react-bootstrap/Button";
+import { Link, useNavigate } from "react-router-dom";
+import { BsList, BsBagPlusFill } from "react-icons/bs";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import { Link, useNavigate } from "react-router-dom";
-import { BsSearch, BsList, BsBagCheckFill } from "react-icons/bs";
+import { BsSearch } from "react-icons/bs";
+import { addToCart } from "../user/cart";
 
-export default function Womens({ showMessage }) {
+export default function Products({ showMessage }) {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [rating, setRating] = useState(0);
   const [pricing, setPricing] = useState(0);
-  const [clear, setClear] = useState(0);
+  const [cart, setCart] = useState({});
   const navigate = useNavigate();
+
   useEffect(() => {
     function fetchWomens() {
       fetch("https://fakestoreapi.com/products/category/women's clothing")
@@ -37,23 +41,23 @@ export default function Womens({ showMessage }) {
     }
     fetchWomens();
   }, []);
-  const ratingChanged = (newRating) => {
+   const ratingChanged = (newRating) => {
     setRating(newRating);
-    console.log(newRating);
   };
+
   const pricingChanged = (newPricing) => {
     setPricing(newPricing.target.value);
-    console.log(newPricing.target.value);
   };
+  
   const clearFilter = () => {
-    setRating (0);
-    setPricing (0);
-    console.log(rating, pricing);
+    setRating([]);
+    setPricing([]);
   };
+
   return (
     <>
       <p style={{ marginTop: "8vmin" }}>WOMEN'S CLOTHING</p>
-      <Container>
+      <Container fluid="md">
         <Form style={{ marginTop: "6vmin" }}>
           <Row>
             <Col xs={12} sm={10} md={8} lg={12} xl={12} xxl={12}>
@@ -82,22 +86,24 @@ export default function Womens({ showMessage }) {
                       emptyIcon={<i className="far fa-star"></i>}
                       halfIcon={<i className="fa fa-star-half-alt"></i>}
                       fullIcon={<i className="fa fa-star"></i>}
-                      activeColor="#000000"
+                      activeColor="#f4d004aa"
                     />
                   </Dropdown.Item>
                   <Dropdown.Item>
                     <Form.Label>Price Range:</Form.Label> <br />
                     <Form.Range
-                      onRateChange={1000}
-                      onChange={pricingChanged}
-                      activeColor="#000000"
+                 min={1}
+                 max={1000}
+                 step="0.5"
+                 id="customRange3"
+                 onChange={pricingChanged}
                     />
                   </Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item>
-                    <Button variant="dark"
+                    <Button variant="primary"
                     onClick={clearFilter}>
-                      Clear Filter
+                      Clear Filters
                     </Button>
                   </Dropdown.Item>
                 </DropdownButton>
@@ -135,41 +141,66 @@ export default function Womens({ showMessage }) {
                     <Card.Img
                       variant="top"
                       src={product.image}
-                      style={{ width: "100%", height: "50%" }}
+                      style={{ width: "70%", height: "70%" }}
                     />
                   </Link>
                   <Card.ImgOverlay>
-                    <Button
+                    <Card.Text
                       style={{
                         position: "absolute",
                         top: 0,
-                        left: 0,
+                        left: 6,
                         border: "none",
                         color: "black",
                         backgroundColor: "white",
-                      }}
-                      onClick={() => {
-                        navigate(`/products/${product.id}`);
+                        padding: "10px",
                       }}
                     >
-                      <BsList />
-                    </Button>
+                      <b>${product.price}</b>
+                    </Card.Text>
 
                     <Button
                       style={{
                         position: "absolute",
                         top: 0,
-                        right: 0,
+                        right: 6,
+                        border: "none",
+                        color: "black",
+                        backgroundColor: "white",
+                        padding: "10px",
+                      }}
+                      onClick={() => addToCart(product, setCart)}
+                    >
+                      <BsBagPlusFill />
+                      <Badge
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          right: -5,
+                          border: "none",
+                          padding: "4px",
+                        }}
+                        bg="light"
+                        text="dark"
+                      >
+                        {}
+                      </Badge>
+                    </Button>
+                    <Button
+                      style={{
+                        position: "absolute",
+                        top: 34,
+                        right: 6,
                         border: "none",
                         color: "black",
                         backgroundColor: "white",
                         padding: "10px",
                       }}
                       onClick={() => {
-                        navigate(`#`);
+                        navigate(`/products/${product.id}`);
                       }}
                     >
-                      <BsBagCheckFill />
+                      <BsList />
                     </Button>
                   </Card.ImgOverlay>
                   <Card.Body
@@ -178,13 +209,13 @@ export default function Womens({ showMessage }) {
                       bottom: 0,
                       backgroundColor: "white",
                       width: "80%",
-                      height: "55%",
+                      height: "45%",
                       padding: "10px",
                     }}
                   >
                     <Card.Text>
                       {product.title} <br /> {product.rating.rate} (
-                      {product.rating.count} Reviews) <br /> ${product.price}
+                      {product.rating.count} Reviews)
                     </Card.Text>
                   </Card.Body>
                 </Card>

@@ -42,7 +42,7 @@ export default function SignUp({showMessage}) {
   return (
     <>
       <Form onSubmit={handleLogin} >
-        <h2>REGISTER</h2>
+        <h2>Register</h2>
         <Form.Group className="mb-3" controlId="formGroupUsername">
           <Form.Label>Username</Form.Label>
           <InputGroup hasValidation>
@@ -91,12 +91,12 @@ export default function SignUp({showMessage}) {
           Submit
         </Button>
         <Button
-        variant="danger"
+        variant="secondary"
         onClick={ () => {
-          navigate("/guestproducts");
+          navigate("/");
         }}
         >
-          Cancel
+          Back
         </Button>
       </Form>
     </>
