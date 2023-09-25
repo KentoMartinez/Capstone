@@ -93,7 +93,7 @@ export default function SignUp({showMessage}) {
         <Button
         variant="danger"
         onClick={ () => {
-          navigate("/products");
+          navigate("/guestproducts");
         }}
         >
           Cancel

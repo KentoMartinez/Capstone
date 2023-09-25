@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import ReactStars from "react-rating-stars-component";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -9,17 +10,25 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { Link, useNavigate } from "react-router-dom";
-import { BsSearch, BsList, BsBagCheck } from "react-icons/bs";
+import { BsSearch, BsList, BsBagCheckFill } from "react-icons/bs";
 
 export default function Womens({ showMessage }) {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
+  const [rating, setRating] = useState(0);
+  const [pricing, setPricing] = useState(0);
+  const [clear, setClear] = useState(0);
   const navigate = useNavigate();
   useEffect(() => {
     function fetchWomens() {
       fetch("https://fakestoreapi.com/products/category/women's clothing")
         .then((res) => res.json())
+
         .then((json) => {
+          json.sort((a, b) => b.rating.rate - a.rating.rate);
+          json.sort((a, b) =>
+            parseFloat(b.price) > parseFloat(a.price) ? 1 : -1
+          );
           setProducts(json);
         })
         .catch((error) => {
@@ -28,6 +37,19 @@ export default function Womens({ showMessage }) {
     }
     fetchWomens();
   }, []);
+  const ratingChanged = (newRating) => {
+    setRating(newRating);
+    console.log(newRating);
+  };
+  const pricingChanged = (newPricing) => {
+    setPricing(newPricing.target.value);
+    console.log(newPricing.target.value);
+  };
+  const clearFilter = () => {
+    setRating (0);
+    setPricing (0);
+    console.log(rating, pricing);
+  };
   return (
     <>
       <p style={{ marginTop: "8vmin" }}>WOMEN'S CLOTHING</p>
@@ -50,20 +72,33 @@ export default function Womens({ showMessage }) {
                   id="input-group-dropdown-2"
                   align="end"
                 >
-                  <Dropdown.Item href="/products/category/electronics">
-                    Electronics
+                  <Dropdown.Item>
+                    Rating:
+                    <ReactStars
+                      count={5}
+                      onChange={ratingChanged}
+                      size={24}
+                      isHalf={true}
+                      emptyIcon={<i className="far fa-star"></i>}
+                      halfIcon={<i className="fa fa-star-half-alt"></i>}
+                      fullIcon={<i className="fa fa-star"></i>}
+                      activeColor="#000000"
+                    />
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <Form.Label>Price Range:</Form.Label> <br />
+                    <Form.Range
+                      onRateChange={1000}
+                      onChange={pricingChanged}
+                      activeColor="#000000"
+                    />
                   </Dropdown.Item>
                   <Dropdown.Divider />
-                  <Dropdown.Item href="/products/category/jewerely">
-                    Jewerely
-                  </Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item href="/products/category/men's clothing">
-                    Men's Clothing
-                  </Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item href="/products/category/women's clothing">
-                    Womes's Clothing
+                  <Dropdown.Item>
+                    <Button variant="dark"
+                    onClick={clearFilter}>
+                      Clear Filter
+                    </Button>
                   </Dropdown.Item>
                 </DropdownButton>
               </InputGroup>
@@ -73,6 +108,12 @@ export default function Womens({ showMessage }) {
 
         <Row>
           {products
+            .filter((product) => {
+              return pricing < product.price;
+            })
+            .filter((product) => {
+              return rating < product.rating.rate;
+            })
             .filter((products) => {
               return search.toLowerCase() === ""
                 ? products
@@ -89,16 +130,12 @@ export default function Womens({ showMessage }) {
                 xl={4}
                 xxl={3}
               >
-                <Card
-                  variant="dark"
-                  key={product.id}
-                  style={{ width: "100%", height: "100%" }}
-                >
+                <Card variant="dark" style={{ width: "100%", height: "100%" }}>
                   <Link to={`/products/${product.id}`}>
                     <Card.Img
                       variant="top"
                       src={product.image}
-                      style={{ width: "80%", height: "100%" }}
+                      style={{ width: "100%", height: "50%" }}
                     />
                   </Link>
                   <Card.ImgOverlay>
@@ -126,12 +163,13 @@ export default function Womens({ showMessage }) {
                         border: "none",
                         color: "black",
                         backgroundColor: "white",
+                        padding: "10px",
                       }}
                       onClick={() => {
                         navigate(`#`);
                       }}
                     >
-                      <BsBagCheck />
+                      <BsBagCheckFill />
                     </Button>
                   </Card.ImgOverlay>
                   <Card.Body
@@ -140,10 +178,14 @@ export default function Womens({ showMessage }) {
                       bottom: 0,
                       backgroundColor: "white",
                       width: "80%",
-                      height: "15%",
+                      height: "55%",
+                      padding: "10px",
                     }}
                   >
-                    <Card.Text>${product.price}</Card.Text>
+                    <Card.Text>
+                      {product.title} <br /> {product.rating.rate} (
+                      {product.rating.count} Reviews) <br /> ${product.price}
+                    </Card.Text>
                   </Card.Body>
                 </Card>
               </Col>
