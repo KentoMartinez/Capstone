@@ -3,22 +3,26 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ReactStars from "react-rating-stars-component";
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import { Link, useNavigate } from 'react-router-dom';
-import { BsList, BsBagPlus } from 'react-icons/bs';
+import Card from "react-bootstrap/Card";
+import Badge from "react-bootstrap/Badge";
+import Button from "react-bootstrap/Button";
+import { Link, useNavigate } from "react-router-dom";
+import { BsList, BsBagPlusFill } from "react-icons/bs";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { BsSearch } from "react-icons/bs";
+import { addToCart } from "../user/cart";
 
 export default function Products({ showMessage }) {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [rating, setRating] = useState(0);
   const [pricing, setPricing] = useState(0);
+  const [cart, setCart] = useState({});
   const navigate = useNavigate();
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     function fetchProducts() {
@@ -38,8 +42,6 @@ export default function Products({ showMessage }) {
     fetchProducts();
   }, []);
 
-
-
   const ratingChanged = (newRating) => {
     setRating(newRating);
     console.log(newRating);
@@ -53,9 +55,10 @@ export default function Products({ showMessage }) {
     setPricing([]);
     console.log(rating, pricing);
   };
+
   return (
     <>
-      <Container>
+      <Container fluid="md">
         <Form style={{ marginTop: "6vmin" }}>
           <Row>
             <Col xs={12} sm={10} md={8} lg={12} xl={12} xxl={12}>
@@ -99,7 +102,7 @@ export default function Products({ showMessage }) {
                   </Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item>
-                    <Button onClick={clearFilter} variant="dark">
+                    <Button onClick={clearFilter} variant="secondary">
                       Clear Filter
                     </Button>
                   </Dropdown.Item>
@@ -124,66 +127,99 @@ export default function Products({ showMessage }) {
                     products.category.toLowerCase().includes(search);
             })
             .map((product) => (
+              <Col
+                key={product.id}
+                xs={12}
+                sm={10}
+                md={8}
+                lg={6}
+                xl={4}
+                xxl={3}
+              >
+                <Card variant="dark" style={{ width: "100%", height: "100%" }}>
+                  <Link>
+                    <Card.Img
+                      variant="top"
+                      src={product.image}
+                      style={{ width: "70%", height: "70%" }}
+                    />
+                  </Link>
+                  <Card.ImgOverlay>
+                    <Card.Text
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 6,
+                        border: "none",
+                        color: "black",
+                        backgroundColor: "white",
+                        padding: "10px",
+                      }}
+                    >
+                      <b>${product.price}</b>
+                    </Card.Text>
 
-              <Col key={product.id} xs={12} sm={10} md={8} lg={6} xl={4} xxl={3}>
-              <Card variant="dark" style={{ width: '100%', height: '100%' }}>
-                <Link>
-                  <Card.Img
-                    variant="top"
-                    src={product.image}
-                    style={{ width: '100%', height: '50%' }}
-                  />
-                </Link>
-                <Card.ImgOverlay>
-                  <Button
+                    <Button
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        right: 6,
+                        border: "none",
+                        color: "black",
+                        backgroundColor: "white",
+                        padding: "10px",
+                      }}
+                      onClick={() => addToCart(product, setCart)}
+                    >
+                      <BsBagPlusFill />
+                      <Badge
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          right: -5,
+                          border: "none",
+                          padding: "4px",
+                        }}
+                        bg="light"
+                        text="dark"
+                      >
+                        {}
+                      </Badge>
+                    </Button>
+                    <Button
+                      style={{
+                        position: "absolute",
+                        top: 34,
+                        right: 6,
+                        border: "none",
+                        color: "black",
+                        backgroundColor: "white",
+                        padding: "10px",
+                      }}
+                      onClick={() => {
+                        navigate(`/products/${product.id}`);
+                      }}
+                    >
+                      <BsList />
+                    </Button>
+                  </Card.ImgOverlay>
+                  <Card.Body
                     style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 6,
-                      border: 'none',
-                      color: 'black',
-                      backgroundColor: 'white',
-                      padding: '10px',
-                    }}
-                    onClick={() => {
-                      navigate(`/products/${product.id}`);
+                      position: "absolute",
+                      bottom: 0,
+                      backgroundColor: "white",
+                      width: "80%",
+                      height: "45%",
+                      padding: "10px",
                     }}
                   >
-                    <BsList />
-                  </Button>
-        
-                  <Button
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      right: 6,
-                      border: 'none',
-                      color: 'black',
-                      backgroundColor: 'white',
-                      padding: '10px',
-                    }}
-                    onClick={() => addToCart(product.id)}
-                  >
-                    <BsBagPlus />
-                  </Button>
-                </Card.ImgOverlay>
-                <Card.Body
-                  style={{
-                    position: 'absolute',
-                    bottom: 0,
-                    backgroundColor: 'white',
-                    width: '80%',
-                    height: '55%',
-                    padding: '10px',
-                  }}
-                >
-                  <Card.Text>
-                    {product.title} <br /> {product.rating.rate} (
-                    {product.rating.count} Reviews) <br /> <b>${product.price}</b>
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
+                    <Card.Text>
+                      {product.title} <br /> {product.rating.rate} (
+                      {product.rating.count} Reviews) <br />
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
             ))}
         </Row>
       </Container>

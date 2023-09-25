@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cart from "../user/cart";
+import { Cart } from "../user/cart";
 
 import {
   BsBag,
@@ -30,7 +30,7 @@ export default function NavbarAuth() {
 
   return (
     <>
-      <Navbar fixed="top" expand={false} bg="dark" data-bs-theme="dark">
+      <Navbar fixed="top" bg="dark" data-bs-theme="dark">
         <Container fluid>
           <Nav>
             <Nav.Link onClick={handleShowLeft}>MONACO</Nav.Link>
@@ -45,7 +45,7 @@ export default function NavbarAuth() {
       </Navbar>
 
       <Offcanvas
-      
+        fluid="md"
         bg="dark"
         data-bs-theme="dark"
         show={showLeft}
@@ -57,13 +57,11 @@ export default function NavbarAuth() {
         </Offcanvas.Header>
 
         <Offcanvas.Body>
-          <Nav>
+          <Nav className="vertical">
             <Nav.Link href="/products">
               <BsHouseFill /> Home
             </Nav.Link>
-          </Nav>
-          <br />
-          <Nav>
+            <br />
             <Nav.Link href="/products/category/electronics">
               <BsPlug /> Electronics
             </Nav.Link>
@@ -77,20 +75,18 @@ export default function NavbarAuth() {
               <BsGenderFemale /> Women's Clothing
             </Nav.Link>
             <br />
-            <Nav>
-              <Nav.Link href="/profile">
-                <BsPersonFill />
-                {" " + localStorage.getItem("username")}
-              </Nav.Link>
-              <Nav.Link
-                onClick={() => {
-                  localStorage.clear();
-                  navigate("/");
-                }}
-              >
-                <BsBoxArrowInLeft /> Log out
-              </Nav.Link>
-            </Nav>
+            <Nav.Link href="/profile">
+              <BsPersonFill />
+              {" " + localStorage.getItem("username")}
+            </Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                localStorage.clear();
+                navigate("/");
+              }}
+            >
+              <BsBoxArrowInLeft /> Log out
+            </Nav.Link>
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>
@@ -101,10 +97,9 @@ export default function NavbarAuth() {
         show={showCart}
         onHide={handleCloseCart}
         placement="end"
-        backdrop={false} // You can customize this as needed
       >
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Shopping Cart</Offcanvas.Title>
+          <Offcanvas.Title>Shopping Bag</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Cart />

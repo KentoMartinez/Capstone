@@ -39,16 +39,16 @@ export default function Jewelery({ showMessage }) {
   }, []);
   const ratingChanged = (newRating) => {
     setRating(newRating);
-    console.log(newRating);
+ 
   };
   const pricingChanged = (newPricing) => {
-    setPricing(newPricing.target.value);
-    console.log(newPricing.target.value);
+    setPricing(parseFloat(newPricing.target.value));
+
   };
   const clearFilter = () => {
     setRating (0);
     setPricing (0);
-    console.log(rating, pricing);
+
   };
   return (
     <>
@@ -108,18 +108,19 @@ export default function Jewelery({ showMessage }) {
 
         <Row>
         {products
-            .filter((product) => {
-              return pricing < product.price
-            })
-            .filter((product) => {
-              return rating < product.rating.rate
-            })
-            .filter((products) => {
-              return search.toLowerCase() === ""
-                ? products
-                : products.title.toLowerCase().includes(search) ||
-                    products.category.toLowerCase().includes(search);
-            })
+                .filter((product) => {
+                  return pricing === 0 || parseFloat(product.price) <= pricing;
+                })
+                .filter((product) => {
+                  return rating === 0 || product.rating.rate >= rating;
+                })
+                .filter((product) => {
+                  return (
+                    search.toLowerCase() === "" ||
+                    product.title.toLowerCase().includes(search) ||
+                    product.category.toLowerCase().includes(search)
+                  );
+                })
             .map((product) => (
               <Col
                 key={product.id}

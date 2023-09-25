@@ -11,7 +11,7 @@ import Jewelery from "./components/categories/jewelery";
 import Electronics from "./components/categories/electronics";
 import Mens from "./components/categories/mensclothing";
 import Womens from "./components/categories/womensclothing";
-import Cart from "./components/user/cart";
+import { Cart } from "./components/user/cart";
 import Profile from "./components/user/profile";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import Toast from "react-bootstrap/Toast";
@@ -50,7 +50,7 @@ function App() {
           />
 
           <Route
-            path="/products/category/jewerely"
+            path="/products/category/jewelery"
             element={<Jewelery showMessage={showMessage} />}
           />
           <Route
@@ -72,7 +72,6 @@ function App() {
           />
         </Routes>
       </div>
-    
       <ToastContainer
         position="bottom-center"
         className="p-3"
@@ -84,12 +83,13 @@ function App() {
           onClose={toggleShow}
           delay={5000}
           autohide
+          fixed
         >
           <Toast.Header>
             <strong className="me-auto">
               {type === "danger"
                 ? "Error"
-                : type === "Warning"
+                : type === "success"
                 ? "Succes"
                 : type}
             </strong>

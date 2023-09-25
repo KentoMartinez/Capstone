@@ -72,7 +72,7 @@ export default function Profile({ showMessage }) {
                 <Form.Label>Address</Form.Label> <br />
                 <Form.Text>
                   {" "}
-                  {user.address.number} {user.address.street}
+                  {user.address?.number} {user.address?.street}
                 </Form.Text>
               </Form.Group>
             </Row>
@@ -83,7 +83,7 @@ export default function Profile({ showMessage }) {
                 style={{ width: "100%" }}
               >
                 <Form.Label>City</Form.Label> <br />
-                <Form.Text>{user.address.city}</Form.Text>
+                <Form.Text>{user.address?.city}</Form.Text>
               </Form.Group>
               <Form.Group
                 as={Col}
@@ -99,7 +99,7 @@ export default function Profile({ showMessage }) {
                 style={{ width: "100%" }}
               >
                 <Form.Label>Zip</Form.Label> <br />
-                <Form.Text> {user.address.zipcode}</Form.Text>
+                <Form.Text> {user.address?.zipcode}</Form.Text>
               </Form.Group>
             </Row>
           </Form>

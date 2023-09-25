@@ -44,26 +44,7 @@ img {
   max-width: 180px;
   margin: 2px;
 }
-/* .bg {
-  background-image: url(./components/home/OIP.jpeg);
-  width: 150vmin;
-  height: 200px;
-  background-size: cover;
-
-} */
-.flex-container {
-  display: flex;
-  align-items: center;
-}
-
-.image-container {
-  flex: 1;
-  margin-left: 2vmin; 
-}
-
-.info-container {
-  flex: 1;
+.vertical {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }

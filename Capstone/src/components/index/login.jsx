@@ -26,7 +26,7 @@ export default function LogIn({showMessage}) {
     })
       .then((res) => res.json())
       .then((json) => {
-      showMessage( username +" " + 'Logged In','Success');
+      showMessage( username +" " + 'Logged In','success');
       localStorage.setItem('username', username);
       navigate(`/products`);
       })
