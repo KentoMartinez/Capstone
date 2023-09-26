@@ -16,7 +16,7 @@ import Profile from "./components/user/profile";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import Toast from "react-bootstrap/Toast";
 import Navbars from "./components/navbars/navbar";
-import { BrowserRouter } from "react-router-dom";
+
 
 function App() {
   const [message, setMessage] = useState("");
@@ -33,7 +33,7 @@ function App() {
   return (
     <>
       <div className="bg">
-        <BrowserRouter>
+        
         <Navbars />
         <Routes>
           <Route path="/" element={<LogIn showMessage={showMessage} />} />
@@ -73,7 +73,7 @@ function App() {
             element={<Profile showMessage={showMessage} />}
           />
         </Routes>
-        </BrowserRouter>
+      
       </div>
       <ToastContainer
         position="bottom-center"

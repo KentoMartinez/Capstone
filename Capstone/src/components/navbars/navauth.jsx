@@ -70,7 +70,7 @@ export default function NavbarAuth() {
             <Nav.Link
               className="text-white"
               onClick={() => {
-                navigate("/product/category/electronics");
+                navigate("/products/category/electronics");
               }}
             >
               <BsPlug /> Electronics
@@ -78,7 +78,7 @@ export default function NavbarAuth() {
             <Nav.Link
               className="text-white"
               onClick={() => {
-                navigate("/product/category/jewelery");
+                navigate("/products/category/jewelery");
               }}
             >
               <BsGem /> Jewelery
@@ -86,7 +86,7 @@ export default function NavbarAuth() {
             <Nav.Link
               className="text-white"
               onClick={() => {
-                navigate("/product/category/men's clothing");
+                navigate("/products/category/men's clothing");
               }}
             >
               <BsGenderMale /> Men's Clothing
@@ -94,7 +94,7 @@ export default function NavbarAuth() {
             <Nav.Link
               className="text-white"
               onClick={() => {
-                navigate("/product/category/women's clothing");
+                navigate("/products/category/women's clothing");
               }}
             >
               <BsGenderFemale /> Women's Clothing
