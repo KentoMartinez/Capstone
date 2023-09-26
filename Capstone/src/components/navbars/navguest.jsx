@@ -51,7 +51,9 @@ export default function NavbarGuest() {
 
               <Offcanvas.Body>
                 <Nav>
-                  <Nav.Link className="text-white" href="/guestproducts">
+                  <Nav.Link className="text-white"  onClick={() => {
+                navigate("/guestproducts");
+              }}">
                     <BsHouseFill /> Home
                   </Nav.Link>
                 </Nav>
