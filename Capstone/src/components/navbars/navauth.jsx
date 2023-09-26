@@ -58,34 +58,60 @@ export default function NavbarAuth() {
 
         <Offcanvas.Body>
           <Nav className="vertical">
-            <Nav.Link className="text-white"href="/products">
+            <Nav.Link
+              className="text-white"
+              onClick={() => {
+                navigate("/products");
+              }}
+            >
               <BsHouseFill /> Home
             </Nav.Link>
             <br />
-            <Nav.Link className="text-white" href="/products/category/electronics">
+            <Nav.Link
+              className="text-white"
+              onClick={() => {
+                navigate("/product/category/electronics");
+              }}
+            >
               <BsPlug /> Electronics
             </Nav.Link>
-            <Nav.Link className="text-white"  href="/products/category/jewelery">
+            <Nav.Link
+              className="text-white"
+              onClick={() => {
+                navigate("/product/category/jewelery");
+              }}
+            >
               <BsGem /> Jewelery
             </Nav.Link>
-            <Nav.Link className="text-white"  href="/products/category/men's clothing">
+            <Nav.Link
+              className="text-white"
+              onClick={() => {
+                navigate("/product/category/men's clothing");
+              }}
+            >
               <BsGenderMale /> Men's Clothing
             </Nav.Link>
-            <Nav.Link className="text-white"  href="/products/category/women's clothing">
+            <Nav.Link
+              className="text-white"
+              onClick={() => {
+                navigate("/product/category/women's clothing");
+              }}
+            >
               <BsGenderFemale /> Women's Clothing
             </Nav.Link>
             <br />
-            <Nav.Link className="text-white"  href="/profile">
+            <Nav.Link className="text-white" href="/profile">
               <BsPersonFill />
               {" " + localStorage.getItem("username")}
             </Nav.Link>
-            <Nav.Link className="text-white" 
+            <Nav.Link
+              className="text-white"
               onClick={() => {
                 localStorage.clear();
                 navigate("/");
               }}
             >
-              <BsBoxArrowInLeft  /> Log out
+              <BsBoxArrowInLeft /> Log out
             </Nav.Link>
           </Nav>
         </Offcanvas.Body>
