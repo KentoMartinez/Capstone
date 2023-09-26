@@ -3,6 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   BsPersonPlus,
   BsHouseFill,
@@ -10,7 +11,7 @@ import {
 
 export default function NavbarGuest() {
   const [showLeft, setShowLeft] = useState(false);
-
+  const navigate = useNavigate();
   
   const handleCloseLeft = () => setShowLeft(false);
   const handleShowLeft = () => setShowLeft(true);
@@ -53,7 +54,7 @@ export default function NavbarGuest() {
                 <Nav>
                   <Nav.Link className="text-white"  onClick={() => {
                 navigate("/guestproducts");
-              }}">
+              }}>
                     <BsHouseFill /> Home
                   </Nav.Link>
                 </Nav>
